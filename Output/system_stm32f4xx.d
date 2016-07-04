@@ -14,5 +14,6 @@
 ..\output\system_stm32f4xx.o: ..\Libraries\FWlib\inc\stm32f4xx_gpio.h
 ..\output\system_stm32f4xx.o: ..\Libraries\FWlib\inc\stm32f4xx_rcc.h
 ..\output\system_stm32f4xx.o: ..\Libraries\FWlib\inc\stm32f4xx_syscfg.h
+..\output\system_stm32f4xx.o: ..\Libraries\FWlib\inc\stm32f4xx_tim.h
 ..\output\system_stm32f4xx.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\system_stm32f4xx.o: ..\Libraries\FWlib\inc\misc.h

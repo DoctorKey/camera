@@ -5,7 +5,7 @@
 #include "led.h"
 #include "usart.h"
 #include "ov7670.h"
-
+#include "pwm_out.h"
 
 volatile u32 jpeg_data_len=0; 			//buf中的JPEG有效数据长度 
 /*************************************************************************************
@@ -22,6 +22,7 @@ int main(void)
   	LED_GPIO_Conf();										   //初始化LED的GPIO配置
   	SysTick_Init();
   	USART1_Conf();
+		PWM_Out_Init(400);				//初始化电调输出功能
 //  	LCD_Init();
   	delay_ms(100);
 

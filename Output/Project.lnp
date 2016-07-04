@@ -5,6 +5,8 @@
 "..\output\led.o"
 "..\output\usart.o"
 "..\output\ov7670.o"
+"..\output\pwm_out.o"
+"..\output\mymath.o"
 "..\output\misc.o"
 "..\output\stm32f4xx_exti.o"
 "..\output\stm32f4xx_fsmc.o"

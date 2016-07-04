@@ -15,5 +15,6 @@
 ..\output\led.o: ..\Libraries\FWlib\inc\stm32f4xx_gpio.h
 ..\output\led.o: ..\Libraries\FWlib\inc\stm32f4xx_rcc.h
 ..\output\led.o: ..\Libraries\FWlib\inc\stm32f4xx_syscfg.h
+..\output\led.o: ..\Libraries\FWlib\inc\stm32f4xx_tim.h
 ..\output\led.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\led.o: ..\Libraries\FWlib\inc\misc.h
