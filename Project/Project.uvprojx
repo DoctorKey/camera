@@ -87,7 +87,7 @@
             <nStopA1X>0</nStopA1X>
             <nStopA2X>0</nStopA2X>
           </AfterMake>
-          <SelectedForBatchBuild>0</SelectedForBatchBuild>
+          <SelectedForBatchBuild>1</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
         </TargetCommonOption>
         <CommonProperty>
@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS\inc;..\Libraries\FWlib\inc;..\Startup;..\User;..\Hardware\delay;..\Hardware\led;..\Hardware\usart;..\Hardware\lcd;..\Hardware\ov7670</IncludePath>
+              <IncludePath>..\Libraries\CMSIS\inc;..\Libraries\FWlib\inc;..\Startup;..\User;..\Hardware\delay;..\Hardware\led;..\Hardware\usart;..\Hardware\lcd;..\Hardware\ov7670;..\Hardware</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -446,6 +446,26 @@
               <FileName>ov7670.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\ov7670\ov7670.c</FilePath>
+            </File>
+            <File>
+              <FileName>pwm_out.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\pwm_out.c</FilePath>
+            </File>
+            <File>
+              <FileName>pwm_out.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\pwm_out.h</FilePath>
+            </File>
+            <File>
+              <FileName>mymath.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\mymath.c</FilePath>
+            </File>
+            <File>
+              <FileName>mymath.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\mymath.h</FilePath>
             </File>
           </Files>
         </Group>

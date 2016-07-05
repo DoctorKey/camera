@@ -18,14 +18,15 @@ int main(void)
 { 
 	u8 *p;
 	int i;
+	int16_t pwm[4]={200,400,800,1200};
   	SystemInit();			                                   //初始化系统时钟，设置时钟为168Mhz
   	LED_GPIO_Conf();										   //初始化LED的GPIO配置
   	SysTick_Init();
   	USART1_Conf();
-		PWM_Out_Init(400);				//初始化电调输出功能
+		PWM_Out_Init(50);				//初始化电调输出功能
 //  	LCD_Init();
   	delay_ms(100);
-
+	SetPwm(pwm,400,2000);
 	USART_SendData(USART1,10);
 	if(OV7670_Init())
 	{
