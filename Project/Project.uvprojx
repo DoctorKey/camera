@@ -422,6 +422,21 @@
               <FileType>1</FileType>
               <FilePath>..\User\stm32f4xx_it.c</FilePath>
             </File>
+            <File>
+              <FileName>ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\ctrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>data_transfer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\data_transfer.c</FilePath>
+            </File>
+            <File>
+              <FileName>init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\init.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

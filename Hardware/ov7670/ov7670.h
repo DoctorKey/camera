@@ -2,9 +2,10 @@
 #define __DCMI_H
 
 #include "stm32f4xx_conf.h"
+#include "include.h"
 
 #define DCMI_DR_ADDRESS       	0x50050028   
-//#define FSMC_LCD_ADDRESS      	0x60020000
+
 #define OV7670_REG_NUM  		140 //167
 #define SCCB_SIC_H()     GPIOB->BSRRL = GPIO_Pin_10
 #define SCCB_SIC_L()     GPIOB->BSRRH = GPIO_Pin_10
@@ -14,7 +15,6 @@
 #define SCCB_DATA_OUT     SCCB_SID_OUT()
 #define SCCB_SID_STATE	 GPIOB->IDR&0x0800
 
-#define jpeg_buf_size 160*120
 
 void Cam_Init();
 u8 OV7670_Init(void);

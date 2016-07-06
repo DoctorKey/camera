@@ -22,19 +22,47 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 F:\electricity\光电设计大赛\摄像头\camera\Project\Project.uvprojx
-Project File Date:  07/04/2016
+Project File Date:  07/06/2016
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\Bin'
 Build target 'SY-STM32F407 V2.0'
 compiling main.c...
+..\User\init.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\include.h(24): warning:  #1-D: last line of file ends without a newline
+  #endif
 ..\Hardware\ov7670\ov7670.h(19): warning:  #1295-D: Deprecated declaration Cam_Init - give arg types
   void Cam_Init();
-..\User\main.c: 1 warning, 0 errors
+..\User\main.c(22): warning:  #177-D: variable "i" was declared but never referenced
+        int i;
+..\User\main.c: 4 warnings, 0 errors
+compiling init.c...
+..\User\init.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\include.h(24): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\init.c(12): warning:  #223-D: function "SysTick_Init" declared implicitly
+    SysTick_Init();
+..\User\init.c: 3 warnings, 0 errors
+compiling usart.c...
+..\Hardware\usart\usart.c(121): warning:  #550-D: variable "com_data" was set but never used
+        u8 com_data;
+..\Hardware\usart\usart.c(186): warning:  #1-D: last line of file ends without a newline
+  }
+..\Hardware\usart\usart.c: 2 warnings, 0 errors
+compiling ov7670.c...
+..\User\include.h(24): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Hardware\ov7670\ov7670.h(19): warning:  #1295-D: Deprecated declaration Cam_Init - give arg types
+  void Cam_Init();
+..\Hardware\ov7670\ov7670.c(11): warning:  #177-D: variable "DCMI_CROPInitStructure" was declared but never referenced
+          DCMI_CROPInitTypeDef DCMI_CROPInitStructure;
+..\Hardware\ov7670\ov7670.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=5780 RO-data=992 RW-data=48 ZI-data=77824  
+Program Size: Code=6152 RO-data=992 RW-data=52 ZI-data=77828  
 FromELF: creating hex file...
-"..\Output\Project.axf" - 0 Error(s), 1 Warning(s).
+"..\Output\Project.axf" - 0 Error(s), 12 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -1,6 +1,5 @@
 #include "ov7670.h"
 #include "delay.h"
-//#include "lcd.h"
 
 __align(4) u32 jpeg_buf[jpeg_buf_size];
 
@@ -99,7 +98,6 @@ u8 OV7670_Init(void)
 	SCCB_Init();
 	OV_Reset();
 	delay_ms(5);
-//	LCD_String(20,50,"Camera ID:",RED);
 //	LCD_Num(180,50,OV_ReadID(),3,WHITE);//ov7670 IDΪ0x73
 	OV_ReadID();
   	for(i=0;i<OV7670_REG_NUM;i++)
@@ -111,12 +109,9 @@ u8 OV7670_Init(void)
 
 void Cam_Start(void)
 {
-//  	LCD_WriteReg(0x03,0x1018);
-//  	LCD_Cursor(0,319);  
   	DMA_Cmd(DMA2_Stream1, ENABLE); 
   	DCMI_Cmd(ENABLE); 
   	DCMI_CaptureCmd(ENABLE); 
-//  	LCD_REG=0x22;
 }
 								  
 void OV7670_HW(u16 hstart,u16 vstart,u16 hstop,u16 vstop)

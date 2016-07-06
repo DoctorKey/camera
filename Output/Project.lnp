@@ -1,6 +1,9 @@
 --cpu Cortex-M4.fp
 "..\output\main.o"
 "..\output\stm32f4xx_it.o"
+"..\output\ctrl.o"
+"..\output\data_transfer.o"
+"..\output\init.o"
 "..\output\delay.o"
 "..\output\led.o"
 "..\output\usart.o"

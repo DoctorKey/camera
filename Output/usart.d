@@ -18,4 +18,3 @@
 ..\output\usart.o: ..\Libraries\FWlib\inc\stm32f4xx_tim.h
 ..\output\usart.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\usart.o: ..\Libraries\FWlib\inc\misc.h
-..\output\usart.o: F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\Bin\..\include\stdio.h

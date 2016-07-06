@@ -5,8 +5,7 @@
 
 #define On      0
 #define Off     1
-#define LED0(x) (x?(GPIO_SetBits(GPIOB,GPIO_Pin_14)):(GPIO_ResetBits(GPIOB,GPIO_Pin_14)))
-#define LED1(x) (x?(GPIO_SetBits(GPIOB,GPIO_Pin_15)):(GPIO_ResetBits(GPIOB,GPIO_Pin_15)))
+#define LED0(x) (x?(GPIO_SetBits(GPIOB,GPIO_Pin_9)):(GPIO_ResetBits(GPIOB,GPIO_Pin_9)))
 
 void LED_GPIO_Conf(void);
 
