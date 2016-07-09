@@ -19,4 +19,3 @@ u8 All_Init()
 	
 	return (1);
 }
-/******************* (C) COPYRIGHT 2014 ANO TECH *****END OF FILE************/

@@ -428,6 +428,11 @@
               <FilePath>..\User\ctrl.c</FilePath>
             </File>
             <File>
+              <FileName>ctrl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\ctrl.h</FilePath>
+            </File>
+            <File>
               <FileName>data_transfer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\data_transfer.c</FilePath>

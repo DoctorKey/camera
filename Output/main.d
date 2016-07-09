@@ -24,3 +24,4 @@
 ..\output\main.o: ..\Hardware\ov7670\ov7670.h
 ..\output\main.o: ..\User\include.h
 ..\output\main.o: ..\Hardware\pwm_out.h
+..\output\main.o: ..\User\ctrl.h

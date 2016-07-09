@@ -19,3 +19,6 @@
 ..\output\ctrl.o: ..\Libraries\FWlib\inc\stm32f4xx_tim.h
 ..\output\ctrl.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\ctrl.o: ..\Libraries\FWlib\inc\misc.h
+..\output\ctrl.o: ..\User\include.h
+..\output\ctrl.o: ..\Hardware\led\led.h
+..\output\ctrl.o: ..\Hardware\usart\usart.h

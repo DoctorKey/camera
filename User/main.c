@@ -7,6 +7,7 @@
 #include "usart.h"
 #include "ov7670.h"
 #include "pwm_out.h"
+#include "ctrl.h"
 
 volatile u32 jpeg_data_len=0; 			//buf中的JPEG有效数据长度 
 u8 Init_Finish = 0;
@@ -20,18 +21,16 @@ int main(void)
 { 
 	u8 *p;
 	int i;
-	int16_t pwm[4]={200,400,800,1200};
-	u8 data_to_send[2]={1,2};
+	int16_t CH[CH_NUM]={0};
+//	u8 data_to_send[2]={1,2};
 	Init_Finish=All_Init();
 
   delay_ms(100);
-	SetPwm(pwm,400,2000);
-	USART_SendString(USART2,data_to_send);
-	USART_SendData(USART2,10);
-//	Usart2_Send(data_to_send,2);
+//	ctrl_pwm(CH[CH_NUM]);
+//	USART_SendString(USART2,data_to_send);
+//	USART_SendData(USART2,10);
 	if(OV7670_Init())
 	{
-		USART_SendData(USART2,00);
 		while(1)
 		{
 			LED0(On);
@@ -46,16 +45,17 @@ int main(void)
 	Cam_Start();
   	while(1)
 	{
-		USART_SendData(USART2,255);
 		p=(u8*)jpeg_buf;
-		jpeg_data_len=jpeg_buf_size-DMA_GetCurrDataCounter(DMA2_Stream1);
-		jpeg_data_len=2048;//160*120;//160*120
+//		jpeg_data_len=jpeg_buf_size-DMA_GetCurrDataCounter(DMA2_Stream1);
+//		jpeg_data_len=2048;//160*120;//160*120
 //			for(i=0;i<jpeg_data_len*4;i++)		//dma传输1次等于4字节,所以乘以4.
 //			{
-////        while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);	//循环发送,直到发送完毕  		
+//        while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);	//循环发送,直到发送完毕  		
 //				USART_SendData(USART2,p[i]); 
 //			} 
+//		USART_SendData(USART2,255);
 		USART_SendString(USART2,p);
+		USART_SendData(USART2,255);
 		LED0(On);
 		delay_ms(300);
 		LED0(Off);

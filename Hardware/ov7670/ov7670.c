@@ -14,6 +14,7 @@ void Cam_Init()
   	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);//DMA2
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | 
                            RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOE, ENABLE);//使能DCMI的GPIO时钟
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_MCO);//MCO1:PA8
   	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
   	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -21,7 +22,7 @@ void Cam_Init()
   	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;  
   	GPIO_Init(GPIOA, &GPIO_InitStructure);	     
-    RCC_MCO2Config(RCC_MCO1Source_PLLCLK, RCC_MCO1Div_3);
+    RCC_MCO1Config(RCC_MCO1Source_PLLCLK, RCC_MCO1Div_5);
 
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;//PE5:PWRDOWN
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; 
@@ -30,6 +31,20 @@ void Cam_Init()
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ; 
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 	GPIO_ResetBits(GPIOA, GPIO_Pin_7);//power on
+	
+	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_7 ;
+	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IN;
+//	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	GPIO_SetBits(GPIOD, GPIO_Pin_7);//reset
+
+	delay_ms(10);
+	OV7670_RST(0);	//复位OV7670
+	delay_ms(10);
+	OV7670_RST(1);	//结束复位 
 
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource4, GPIO_AF_DCMI);//DCMI_HSYNC 
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource6, GPIO_AF_DCMI);//DCMI_PIXCLK
@@ -56,17 +71,18 @@ void Cam_Init()
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_6; 
     GPIO_Init(GPIOA, &GPIO_InitStructure);		 
 
-//		DCMI_CROPInitStructure.DCMI_CaptureCount=0xf0;
-//		DCMI_CROPInitStructure.DCMI_HorizontalOffsetCount=0xc8;
-//		DCMI_CROPInitStructure.DCMI_VerticalLineCount=0xa0;
-//		DCMI_CROPInitStructure.DCMI_VerticalStartLine=0xa0;
-//		DCMI_CROPCmd(ENABLE);
+		DCMI_CROPInitStructure.DCMI_CaptureCount=0x1e0;
+		DCMI_CROPInitStructure.DCMI_HorizontalOffsetCount=0x00;
+		DCMI_CROPInitStructure.DCMI_VerticalLineCount=0xa0;
+		DCMI_CROPInitStructure.DCMI_VerticalStartLine=0x00;
+		DCMI_CROPConfig(&DCMI_CROPInitStructure);
+		DCMI_CROPCmd(ENABLE);
 		
-  	DCMI_InitStructure.DCMI_CaptureMode = DCMI_CaptureMode_SnapShot;//DCMI_CaptureMode_Continuous;
+  	DCMI_InitStructure.DCMI_CaptureMode =DCMI_CaptureMode_Continuous;// DCMI_CaptureMode_SnapShot;//DCMI_CaptureMode_Continuous;
   	DCMI_InitStructure.DCMI_SynchroMode = DCMI_SynchroMode_Hardware;
-  	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Falling;
-  	DCMI_InitStructure.DCMI_VSPolarity = DCMI_VSPolarity_High;
-  	DCMI_InitStructure.DCMI_HSPolarity = DCMI_HSPolarity_High;
+  	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Rising;
+  	DCMI_InitStructure.DCMI_VSPolarity = DCMI_VSPolarity_Low;
+  	DCMI_InitStructure.DCMI_HSPolarity = DCMI_HSPolarity_Low;
   	DCMI_InitStructure.DCMI_CaptureRate = DCMI_CaptureRate_All_Frame;
   	DCMI_InitStructure.DCMI_ExtendedDataMode = DCMI_ExtendedDataMode_8b;
   	DCMI_Init(&DCMI_InitStructure); 
@@ -93,17 +109,28 @@ void Cam_Init()
 
 u8 OV7670_Init(void)
 {
-  	u8 i;
+  	u8 i,id;
  	Cam_Init();
 	SCCB_Init();
 	OV_Reset();
 	delay_ms(5);
-//	LCD_Num(180,50,OV_ReadID(),3,WHITE);//ov7670 ID为0x73
-	OV_ReadID();
-  	for(i=0;i<OV7670_REG_NUM;i++)
+	id=OV_ReadID();
+//  	for(i=0;i<sizeof(OV7670_reg)/sizeof(OV7670_reg[0]);i++)
+//  	{
+//    	if(OV_WriteReg(OV7670_reg[i][0],OV7670_reg[i][1]))return 1;
+//  	}
+		for(i=0;i<sizeof(OV7670_Reg_new)/sizeof(OV7670_Reg_new[0]);i++)
   	{
-    	if(OV_WriteReg(OV7670_reg[i][0],OV7670_reg[i][1]))return 1;
+    	if(OV_WriteReg(OV7670_Reg_new[i][0],OV7670_Reg_new[i][1]))return 1;
   	}
+//		for(i=0;i<sizeof(ov7670_init_reg_tbl)/sizeof(ov7670_init_reg_tbl[0]);i++)
+//	{
+//	   	OV_WriteReg(ov7670_init_reg_tbl[i][0],ov7670_init_reg_tbl[i][1]);
+//  	}
+//		for(i=0;i<sizeof(OV7670_Reg_2)/sizeof(OV7670_Reg_2[0]);i++)
+//  	{
+//    	if(OV_WriteReg(OV7670_Reg_2[i][0],OV7670_Reg_2[i][1]))return 1;
+//  	}
 	return 0; 
 }
 
