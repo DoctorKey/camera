@@ -19,13 +19,13 @@
 /***********************************************/
 
 /***************picture******************/
-#define PIC_LONG 240
-#define PIC_WIDE 160
-#define jpeg_buf_size (PIC_LONG*PIC_WIDE/2)
+#define PIC_ROW 120
+#define PIC_COL 320
+#define jpeg_buf_size (PIC_ROW*PIC_COL/2)
 /***********************************************/
 /***************ctrl******************/
 #define CH_NUM 4
-#define PWM_MIN 1600
-#define PWM_MAX 1200
+#define PWM_MIN 0
+#define PWM_MAX 1000
 /***********************************************/
 #endif

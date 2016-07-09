@@ -8,5 +8,6 @@
 #define LED0(x) (x?(GPIO_SetBits(GPIOB,GPIO_Pin_9)):(GPIO_ResetBits(GPIOB,GPIO_Pin_9)))
 
 void LED_GPIO_Conf(void);
+void LED_SET(u8 mode);
 
 #endif

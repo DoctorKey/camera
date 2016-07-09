@@ -8,6 +8,7 @@
 #include "ov7670.h"
 #include "pwm_out.h"
 #include "ctrl.h"
+#include "usmart.h"
 
 volatile u32 jpeg_data_len=0; 			//buf中的JPEG有效数据长度 
 u8 Init_Finish = 0;
@@ -21,12 +22,11 @@ int main(void)
 { 
 	u8 *p;
 	int i;
-	int16_t CH[CH_NUM]={0};
-//	u8 data_to_send[2]={1,2};
+	int16_t CH[CH_NUM]={1000,1200,1500,1800};
 	Init_Finish=All_Init();
 
   delay_ms(100);
-//	ctrl_pwm(CH[CH_NUM]);
+	ctrl_pwm(CH);
 //	USART_SendString(USART2,data_to_send);
 //	USART_SendData(USART2,10);
 	if(OV7670_Init())

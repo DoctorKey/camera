@@ -13,23 +13,15 @@ void pid_set()
 /*
 		
 */
-int16_t pwm[4]={200,400,800,1200};
-int16_t CH[CH_NUM]={0,0,0,0};//1000~2000
+int16_t pwm[4]={0,0,0,0};//0~500
+int16_t CH[CH_NUM]={1000,1200,1500,1800};//1000~2000
 void ctrl_pwm(int16_t CH[CH_NUM])
 {
-	int i;
-	pwm[0]=200;
-	pwm[1]=300;
-	pwm[2]=400;
-	pwm[3]=500;
-	for(i=0;i<15;i++){
-		pwm[0]=pwm[0]+100;
-		pwm[1]=pwm[0]+100;
-		pwm[2]=pwm[0]+100;
-		pwm[3]=pwm[0]+100;
-		SetPwm(pwm,PWM_MIN,PWM_MAX);
-	}
-	
+	pwm[0]=(CH[0]-1000)/2;
+	pwm[1]=(CH[1]-1000)/2;
+	pwm[2]=(CH[2]-1000)/2;
+	pwm[3]=(CH[3]-1000)/2;
+	SetPwm_1(pwm,PWM_MIN,PWM_MAX);
 }
 
 //void Control_Land()

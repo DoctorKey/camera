@@ -18,3 +18,10 @@ void LED_GPIO_Conf(void)
    GPIO_Init(GPIOB, &GPIO_InitStructure);												  //初始化GPIOB的Pin_14管脚
    GPIO_SetBits(GPIOB,GPIO_Pin_9);														  //使GPIOB的Pin_14输出高电平
 }
+void LED_SET(u8 mode)
+{
+	if(mode)
+		LED0(0);
+	else
+		LED0(1);
+}

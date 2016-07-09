@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS\inc;..\Libraries\FWlib\inc;..\Startup;..\User;..\Hardware\delay;..\Hardware\led;..\Hardware\usart;..\Hardware\lcd;..\Hardware\ov7670;..\Hardware</IncludePath>
+              <IncludePath>..\Libraries\CMSIS\inc;..\Libraries\FWlib\inc;..\Startup;..\User;..\Hardware\delay;..\Hardware\led;..\Hardware\usart;..\Hardware\lcd;..\Hardware\ov7670;..\Hardware;..\usmart</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -412,6 +412,11 @@
         <Group>
           <GroupName>User</GroupName>
           <Files>
+            <File>
+              <FileName>include.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\include.h</FilePath>
+            </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>

@@ -25,3 +25,5 @@
 ..\output\main.o: ..\User\include.h
 ..\output\main.o: ..\Hardware\pwm_out.h
 ..\output\main.o: ..\User\ctrl.h
+..\output\main.o: ..\usmart\usmart.h
+..\output\main.o: ..\usmart\usmart_str.h
