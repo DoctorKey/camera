@@ -20,5 +20,5 @@
 ..\output\usmart_config.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\usmart_config.o: ..\Libraries\FWlib\inc\misc.h
 ..\output\usmart_config.o: ..\Hardware\delay\delay.h
-..\output\usmart_config.o: ..\Hardware\lcd\lcd.h
-..\output\usmart_config.o: ..\Hardware\lcd\fonts.h
+..\output\usmart_config.o: ..\Startup\sys.h
+..\output\usmart_config.o: ..\Hardware\led\led.h

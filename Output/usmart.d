@@ -20,3 +20,5 @@
 ..\output\usmart.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\usmart.o: ..\Libraries\FWlib\inc\misc.h
 ..\output\usmart.o: ..\Hardware\usart\usart.h
+..\output\usmart.o: F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\usmart.o: ..\Startup\sys.h

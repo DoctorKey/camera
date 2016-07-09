@@ -5,4 +5,5 @@
 
 u8 All_Init(void);
 extern u8 Init_Finish;
+
 #endif

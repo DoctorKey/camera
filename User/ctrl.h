@@ -15,4 +15,6 @@ typedef struct
 }pid_group;
 
 extern int16_t CH[];
+void ctrl_pwm(int16_t CH[CH_NUM]);
+
 #endif 

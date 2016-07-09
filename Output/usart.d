@@ -18,3 +18,8 @@
 ..\output\usart.o: ..\Libraries\FWlib\inc\stm32f4xx_tim.h
 ..\output\usart.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\usart.o: ..\Libraries\FWlib\inc\misc.h
+..\output\usart.o: F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\usart.o: ..\Startup\sys.h
+..\output\usart.o: ..\User\include.h
+..\output\usart.o: ..\Hardware\led\led.h
+..\output\usart.o: ..\Hardware\pwm_out.h

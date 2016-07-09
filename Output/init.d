@@ -21,4 +21,7 @@
 ..\output\init.o: ..\User\include.h
 ..\output\init.o: ..\Hardware\led\led.h
 ..\output\init.o: ..\Hardware\usart\usart.h
+..\output\init.o: F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\init.o: ..\Hardware\pwm_out.h
+..\output\init.o: ..\usmart\usmart.h
+..\output\init.o: ..\usmart\usmart_str.h

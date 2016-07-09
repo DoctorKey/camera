@@ -27,7 +27,6 @@ int main(void)
 
   delay_ms(100);
 	ctrl_pwm(CH);
-//	USART_SendString(USART2,data_to_send);
 //	USART_SendData(USART2,10);
 	if(OV7670_Init())
 	{
@@ -58,7 +57,7 @@ int main(void)
 		USART_SendData(USART2,255);
 		LED0(On);
 		delay_ms(300);
-		LED0(Off);
+//		LED0(Off);
 //		delay_ms(300);
 		
 	}

@@ -1,5 +1,6 @@
 #include "init.h"
 #include "include.h"
+#include "usmart.h"
 
 u8 All_Init()
 {
@@ -11,11 +12,13 @@ u8 All_Init()
 	
   SysTick_Init();
 	
-//USART1_Conf();
-	
 	Usart2_Init(115200);
 	
 	PWM_Out_Init(50);				//初始化PWM输出功能
+	
+	uart_init(115200);
+	
+	usmart_dev.init(84);
 	
 	return (1);
 }
