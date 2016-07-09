@@ -22,7 +22,7 @@ int main(void)
 { 
 	u8 *p;
 	int i;
-	int16_t CH[CH_NUM]={1000,1200,1500,1800};
+	
 	Init_Finish=All_Init();
 
   delay_ms(100);

@@ -1,6 +1,5 @@
 #include "ctrl.h"
 #include "pwm_out.h"
-#include "include.h"
 
 pid_group pid_camera;
 void pid_set()
@@ -10,11 +9,11 @@ void pid_set()
 	pid_camera.d=1;
 }
 
-/*
-		
-*/
+//=================== filter ===================================
+//  全局输出，CH[],0横滚，1俯仰，2油门，3航向 	
+//=================== filter =================================== 	
 int16_t pwm[4]={0,0,0,0};//0~500
-int16_t CH[CH_NUM]={1000,1200,1500,1800};//1000~2000
+int16_t CH[CH_NUM]={1500,1500,1000,1500};//1000~2000
 void ctrl_pwm(int16_t CH[CH_NUM])
 {
 	pwm[0]=(CH[0]-1000)/2;

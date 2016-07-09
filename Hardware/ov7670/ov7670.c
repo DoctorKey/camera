@@ -22,7 +22,7 @@ void Cam_Init()
   	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;  
   	GPIO_Init(GPIOA, &GPIO_InitStructure);	     
-    RCC_MCO1Config(RCC_MCO1Source_PLLCLK, RCC_MCO1Div_5);
+    RCC_MCO1Config(RCC_MCO1Source_HSE, RCC_MCO1Div_1);//25MHz
 
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;//PE5:PWRDOWN
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; 
@@ -78,10 +78,10 @@ void Cam_Init()
 		DCMI_CROPConfig(&DCMI_CROPInitStructure);
 		DCMI_CROPCmd(ENABLE);
 		
-  	DCMI_InitStructure.DCMI_CaptureMode =DCMI_CaptureMode_Continuous;// DCMI_CaptureMode_SnapShot;//DCMI_CaptureMode_Continuous;
+  	DCMI_InitStructure.DCMI_CaptureMode =DCMI_CaptureMode_SnapShot;// DCMI_CaptureMode_SnapShot;//DCMI_CaptureMode_Continuous;
   	DCMI_InitStructure.DCMI_SynchroMode = DCMI_SynchroMode_Hardware;
-  	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Falling;
-  	DCMI_InitStructure.DCMI_VSPolarity = DCMI_VSPolarity_Low;
+  	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Rising;
+  	DCMI_InitStructure.DCMI_VSPolarity = DCMI_VSPolarity_High;
   	DCMI_InitStructure.DCMI_HSPolarity = DCMI_HSPolarity_Low;
   	DCMI_InitStructure.DCMI_CaptureRate = DCMI_CaptureRate_All_Frame;
   	DCMI_InitStructure.DCMI_ExtendedDataMode = DCMI_ExtendedDataMode_8b;
@@ -119,14 +119,14 @@ u8 OV7670_Init(void)
 //  	{
 //    	if(OV_WriteReg(OV7670_reg[i][0],OV7670_reg[i][1]))return 1;
 //  	}
-		for(i=0;i<sizeof(OV7670_Reg_new)/sizeof(OV7670_Reg_new[0]);i++)
-  	{
-    	if(OV_WriteReg(OV7670_Reg_new[i][0],OV7670_Reg_new[i][1]))return 1;
-  	}
-//		for(i=0;i<sizeof(ov7670_init_reg_tbl)/sizeof(ov7670_init_reg_tbl[0]);i++)
-//	{
-//	   	OV_WriteReg(ov7670_init_reg_tbl[i][0],ov7670_init_reg_tbl[i][1]);
+//		for(i=0;i<sizeof(OV7670_Reg_new)/sizeof(OV7670_Reg_new[0]);i++)
+//  	{
+//    	if(OV_WriteReg(OV7670_Reg_new[i][0],OV7670_Reg_new[i][1]))return 1;
 //  	}
+		for(i=0;i<sizeof(ov7670_init_reg_tbl)/sizeof(ov7670_init_reg_tbl[0]);i++)
+		{
+	   	OV_WriteReg(ov7670_init_reg_tbl[i][0],ov7670_init_reg_tbl[i][1]);
+  	}
 //		for(i=0;i<sizeof(OV7670_Reg_2)/sizeof(OV7670_Reg_2[0]);i++)
 //  	{
 //    	if(OV_WriteReg(OV7670_Reg_2[i][0],OV7670_Reg_2[i][1]))return 1;

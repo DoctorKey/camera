@@ -1,5 +1,6 @@
 #ifndef __CTRL_H
 #define __CTRL_H
+#include "include.h"
 
 #define PITCH_CH 0
 #define ROLL_CH  1
@@ -13,4 +14,5 @@ typedef struct
 	double d;
 }pid_group;
 
+extern int16_t CH[];
 #endif 

@@ -3,9 +3,9 @@
 <title>Static Call Graph - [..\Output\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\Output\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Sat Jul 09 15:17:21 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Sat Jul 09 20:40:46 2016
 <BR><P>
-<H3>Maximum Stack Usage =        148 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        132 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; OV7670_Init &rArr; Cam_Init &rArr; GPIO_PinAFConfig
 <P>
@@ -417,7 +417,7 @@ Global Symbols
 <P><STRONG><a name="[4]"></a>BusFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.BusFault_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[68]"></a>Cam_Init</STRONG> (Thumb, 560 bytes, Stack size 96 bytes, ov7670.o(i.Cam_Init))
+<P><STRONG><a name="[68]"></a>Cam_Init</STRONG> (Thumb, 566 bytes, Stack size 96 bytes, ov7670.o(i.Cam_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = Cam_Init &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_MCO1Config
@@ -549,7 +549,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;All_Init
 </UL>
 
-<P><STRONG><a name="[7b]"></a>OV7670_Init</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, ov7670.o(i.OV7670_Init))
+<P><STRONG><a name="[7b]"></a>OV7670_Init</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, ov7670.o(i.OV7670_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = OV7670_Init &rArr; Cam_Init &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SCCB_Init
@@ -917,8 +917,8 @@ Global Symbols
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OV_ReadReg
 </UL>
 
-<P><STRONG><a name="[5c]"></a>main</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = main &rArr; OV7670_Init &rArr; Cam_Init &rArr; GPIO_PinAFConfig
+<P><STRONG><a name="[5c]"></a>main</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = main &rArr; OV7670_Init &rArr; Cam_Init &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctrl_pwm
