@@ -18,4 +18,4 @@
 ..\output\pwm_out.o: ..\Libraries\FWlib\inc\stm32f4xx_tim.h
 ..\output\pwm_out.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\pwm_out.o: ..\Libraries\FWlib\inc\misc.h
-..\output\pwm_out.o: ..\Hardware\mymath.h
+..\output\pwm_out.o: ..\User\mymath.h

@@ -12,6 +12,7 @@ extern u16 USART_RX_STA;         		//接收状态标记
 void uart_init(u32 bound);
 
 void USART_SendString(USART_TypeDef* USARTx,u8 *str);
+void USART_SendString_bysize(USART_TypeDef* USARTx,u8 *str,u32 size);
 
 void Usart2_Init(u32 br_num);
 void Usart2_IRQ(void);

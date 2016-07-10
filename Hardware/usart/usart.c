@@ -228,12 +228,6 @@ void Usart2_Send(unsigned char *DataToSend ,u8 data_num)
 
 }
 
-/********************************************************************************************************************************
-*函数名：USART_SendString()
-* 参数：USART_TypeDef* USARTx 所要发送到的串口的指针，u8 *str 指向发送的字符串的指针
-* 返回值：void
-* 功能：向某个串口发送一个字符串
-*********************************************************************************************************************************/
 void USART_SendString(USART_TypeDef* USARTx,u8 *str)
 {
   while(*str)
@@ -246,3 +240,18 @@ void USART_SendString(USART_TypeDef* USARTx,u8 *str)
 	str++;	
   }
 }
+
+void USART_SendString_bysize(USART_TypeDef* USARTx,u8 *str,u32 size)
+{
+	u32 i=1;
+  for(i=1;i<=size;i++)
+  {
+  	 USART_SendData(USARTx,*str);													   //将*str从USARTx发送出去
+	  while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET)				       //等待发送完毕
+    {
+      																		           //str的地址增加1，到下一个字符
+    }
+	str++;	
+  }
+}
+

@@ -9,8 +9,8 @@
 #include "pwm_out.h"
 #include "ctrl.h"
 #include "usmart.h"
+#include "dgp.h"
 
-volatile u32 jpeg_data_len=0; 			//buf中的JPEG有效数据长度 
 u8 Init_Finish = 0;
 /*************************************************************************************
   * 函数名称：main()
@@ -21,45 +21,28 @@ u8 Init_Finish = 0;
 int main(void)
 { 
 	u8 *p;
-	int i;
+	u32 i;
 	
 	Init_Finish=All_Init();
 
   delay_ms(100);
 	ctrl_pwm(CH);
-//	USART_SendData(USART2,10);
-	if(OV7670_Init())
-	{
-		while(1)
-		{
-			LED0(On);
-			delay_ms(300);
-			LED0(Off);
-			delay_ms(300);	
-			USART_SendData(USART2,00);			
-		}
-	}
-//	OV7670_Init();
-	delay_ms(1000);
-	Cam_Start();
+	i=jpeg_buf_size;
   	while(1)
 	{
-		p=(u8*)jpeg_buf;
-//		jpeg_data_len=jpeg_buf_size-DMA_GetCurrDataCounter(DMA2_Stream1);
-//		jpeg_data_len=2048;//160*120;//160*120
-//			for(i=0;i<jpeg_data_len*4;i++)		//dma传输1次等于4字节,所以乘以4.
-//			{
-//        while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);	//循环发送,直到发送完毕  		
-//				USART_SendData(USART2,p[i]); 
-//			} 
-//		USART_SendData(USART2,255);
-		USART_SendString(USART2,p);
-		USART_SendData(USART2,255);
-		LED0(On);
-		delay_ms(300);
-//		LED0(Off);
-//		delay_ms(300);
+		if(jpeg_data_ok==1)	//已经采集完一帧图像了
+		{  
+			p=(u8*)jpeg_buf;
+			LED0(On);
+			USART_SendString_bysize(USART2,p,i*4);
+			USART_SendData(USART2,255);
+			delay_ms(300);
+			LED0(Off);
+			jpeg_data_ok=2;	//标记jpeg数据处理完了,可以让DMA去采集下一帧了.
+		}		
 		
+		delay_ms(300);
+		LED0(Off);	
 	}
 }
 

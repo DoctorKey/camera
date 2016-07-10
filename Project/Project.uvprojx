@@ -443,9 +443,39 @@
               <FilePath>..\User\data_transfer.c</FilePath>
             </File>
             <File>
+              <FileName>data_transfer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\data_transfer.h</FilePath>
+            </File>
+            <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\init.c</FilePath>
+            </File>
+            <File>
+              <FileName>init.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\init.h</FilePath>
+            </File>
+            <File>
+              <FileName>dgp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\dgp.c</FilePath>
+            </File>
+            <File>
+              <FileName>dgp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\dgp.h</FilePath>
+            </File>
+            <File>
+              <FileName>mymath.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\mymath.c</FilePath>
+            </File>
+            <File>
+              <FileName>mymath.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\mymath.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -473,6 +503,16 @@
               <FilePath>..\Hardware\ov7670\ov7670.c</FilePath>
             </File>
             <File>
+              <FileName>ov7670.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ov7670\ov7670.h</FilePath>
+            </File>
+            <File>
+              <FileName>ov7670cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ov7670\ov7670cfg.h</FilePath>
+            </File>
+            <File>
               <FileName>pwm_out.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\pwm_out.c</FilePath>
@@ -483,14 +523,9 @@
               <FilePath>..\Hardware\pwm_out.h</FilePath>
             </File>
             <File>
-              <FileName>mymath.c</FileName>
+              <FileName>timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Hardware\mymath.c</FilePath>
-            </File>
-            <File>
-              <FileName>mymath.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\mymath.h</FilePath>
+              <FilePath>..\Hardware\timer.c</FilePath>
             </File>
           </Files>
         </Group>

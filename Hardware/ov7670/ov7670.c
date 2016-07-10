@@ -1,21 +1,69 @@
 #include "ov7670.h"
 #include "delay.h"
+#include "dgp.h"
+#include "ov7670cfg.h"
 
 __align(4) u32 jpeg_buf[jpeg_buf_size];
+u8 ov_frame=0;  						//帧率
 
+//DCMI中断服务函数
+void DCMI_IRQHandler(void)
+{
+	if(DCMI_GetITStatus(DCMI_IT_FRAME)==SET)//捕获到一帧图像
+	{
+		jpeg_data_process(); 	//jpeg数据处理	
+		DCMI_ClearITPendingBit(DCMI_IT_FRAME);//清除帧中断
+//		LED1=!LED1;
+		ov_frame++;  
+	}
+} 
+
+//DCMI DMA配置
+//DMA_Memory0BaseAddr:存储器地址    将要存储摄像头数据的内存地址(也可以是外设地址)
+//DMA_BufferSize:存储器长度    0~65535
+//DMA_MemoryDataSize:存储器位宽  
+//DMA_MemoryDataSize:存储器位宽    @defgroup DMA_memory_data_size :DMA_MemoryDataSize_Byte/DMA_MemoryDataSize_HalfWord/DMA_MemoryDataSize_Word
+//DMA_MemoryInc:存储器增长方式  @defgroup DMA_memory_incremented_mode  /** @defgroup DMA_memory_incremented_mode : DMA_MemoryInc_Enable/DMA_MemoryInc_Disable
+void DCMI_DMA_Init(u32 DMA_Memory0BaseAddr,u16 DMA_BufferSize,u32 DMA_MemoryDataSize,u32 DMA_MemoryInc)
+{ 
+	DMA_InitTypeDef  DMA_InitStructure;
+	
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);//DMA2时钟使能 
+	DMA_DeInit(DMA2_Stream1);
+	while (DMA_GetCmdStatus(DMA2_Stream1) != DISABLE){}//等待DMA2_Stream1可配置 
+	
+  /* 配置 DMA Stream */
+  DMA_InitStructure.DMA_Channel = DMA_Channel_1;  //通道1 DCMI通道 
+  DMA_InitStructure.DMA_PeripheralBaseAddr = DCMI_DR_ADDRESS;//外设地址为:DCMI->DR
+  DMA_InitStructure.DMA_Memory0BaseAddr = DMA_Memory0BaseAddr;//DMA 存储器0地址
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;//外设到存储器模式
+  DMA_InitStructure.DMA_BufferSize = DMA_BufferSize;//数据传输量 
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;//外设非增量模式
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc;//存储器增量模式
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;//外设数据长度:32位
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize;//存储器数据长度 
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;// 使用循环模式 
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;//高优先级
+  DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Enable; //FIFO模式        
+  DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;//使用全FIFO 
+  DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;//外设突发单次传输
+  DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;//存储器突发单次传输
+  DMA_Init(DMA2_Stream1, &DMA_InitStructure);//初始化DMA Stream
+	
+} 
 void Cam_Init()
 {
   	GPIO_InitTypeDef GPIO_InitStructure;
   	DCMI_InitTypeDef DCMI_InitStructure;
-  	DMA_InitTypeDef  DMA_InitStructure;
 	  DCMI_CROPInitTypeDef DCMI_CROPInitStructure;
+		NVIC_InitTypeDef NVIC_InitStructure;
 
   	RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_DCMI, ENABLE);//DCMI 
   	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);//DMA2
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | 
                            RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOE, ENABLE);//使能DCMI的GPIO时钟
 		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_MCO);//MCO1:PA8
+		GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_MCO);//MCO1:PA8
   	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
   	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
@@ -78,7 +126,7 @@ void Cam_Init()
 		DCMI_CROPConfig(&DCMI_CROPInitStructure);
 		DCMI_CROPCmd(ENABLE);
 		
-  	DCMI_InitStructure.DCMI_CaptureMode =DCMI_CaptureMode_SnapShot;// DCMI_CaptureMode_SnapShot;//DCMI_CaptureMode_Continuous;
+  	DCMI_InitStructure.DCMI_CaptureMode =DCMI_CaptureMode_Continuous;// DCMI_CaptureMode_SnapShot;//DCMI_CaptureMode_Continuous;
   	DCMI_InitStructure.DCMI_SynchroMode = DCMI_SynchroMode_Hardware;
   	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Rising;
   	DCMI_InitStructure.DCMI_VSPolarity = DCMI_VSPolarity_High;
@@ -87,24 +135,17 @@ void Cam_Init()
   	DCMI_InitStructure.DCMI_ExtendedDataMode = DCMI_ExtendedDataMode_8b;
   	DCMI_Init(&DCMI_InitStructure); 
 		
-  	DMA_DeInit(DMA2_Stream1);
-		while (DMA_GetCmdStatus(DMA2_Stream1) != DISABLE){}//等待DMA2_Stream1可配置 
-  	DMA_InitStructure.DMA_Channel = DMA_Channel_1;  
-  	DMA_InitStructure.DMA_PeripheralBaseAddr = DCMI_DR_ADDRESS;	
-  	DMA_InitStructure.DMA_Memory0BaseAddr = (u32)&jpeg_buf;//FSMC_LCD_ADDRESS;
-  	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
-  	DMA_InitStructure.DMA_BufferSize = jpeg_buf_size;//1
-  	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-  	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;// DMA_MemoryInc_Disable;
-  	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word;//DMA_PeripheralDataSize_Word;
-  	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;//DMA_MemoryDataSize_HalfWord;
-  	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
-  	DMA_InitStructure.DMA_Priority = DMA_Priority_High;
-  	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Enable;
-  	DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
-  	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
-  	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;  
-  	DMA_Init(DMA2_Stream1, &DMA_InitStructure);
+		DCMI_ITConfig(DCMI_IT_FRAME,ENABLE);//开启帧中断 
+	
+		DCMI_Cmd(ENABLE);	//DCMI使能
+	
+		DCMI_DMA_Init((u32)&jpeg_buf,jpeg_buf_size,DMA_MemoryDataSize_Word,DMA_MemoryInc_Enable);
+			
+		NVIC_InitStructure.NVIC_IRQChannel = DCMI_IRQn;
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=NVIC_DCMI_P;//抢占优先级1
+		NVIC_InitStructure.NVIC_IRQChannelSubPriority =NVIC_DCMI_S;		//子优先级2
+		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
+		NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器、
 }
 
 u8 OV7670_Init(void)
@@ -133,14 +174,21 @@ u8 OV7670_Init(void)
 //  	}
 	return 0; 
 }
-
-void Cam_Start(void)
-{
-  	DMA_Cmd(DMA2_Stream1, ENABLE); 
-  	DCMI_Cmd(ENABLE); 
-  	DCMI_CaptureCmd(ENABLE); 
+//DCMI,启动传输
+void DCMI_Start(void)
+{  
+	DMA_Cmd(DMA2_Stream1, ENABLE);//开启DMA2,Stream1 
+	DCMI_CaptureCmd(ENABLE);//DCMI捕获使能  
 }
-								  
+//DCMI,关闭传输
+void DCMI_Stop(void)
+{ 
+  DCMI_CaptureCmd(DISABLE);//DCMI捕获使关闭	
+	
+	while(DCMI->CR&0X01);		//等待传输结束 
+	 	
+	DMA_Cmd(DMA2_Stream1,DISABLE);//关闭DMA2,Stream1
+} 							  
 void OV7670_HW(u16 hstart,u16 vstart,u16 hstop,u16 vstop)
 {
 	u8 v;		
@@ -156,7 +204,18 @@ void OV7670_HW(u16 hstart,u16 vstart,u16 hstop,u16 vstop)
 	v=(v&0xf0)|((vstop&0x3)<<2)|(vstart&0x3);	
 	OV_WriteReg(0x03,v);//VREF																 
 	OV_WriteReg(0x11,0x00);
-}								
+}			
+void OV_Reset(void)
+{
+	OV_WriteReg(0x12,0x80);
+}
+
+u8 OV_ReadID(void)
+{
+	u8 temp;
+	OV_ReadReg(0x0b,&temp);
+  	return temp;
+}
 /////////////////////////////////////
 void SCCB_Init(void)
 {
@@ -336,14 +395,4 @@ u8 OV_ReadReg(u8 regID, u8 *regDat)
   	return 0;//成功返回
 }
 
-void OV_Reset(void)
-{
-	OV_WriteReg(0x12,0x80);
-}
 
-u8 OV_ReadID(void)
-{
-	u8 temp;
-	OV_ReadReg(0x0b,&temp);
-  	return temp;
-}
