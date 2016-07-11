@@ -107,10 +107,10 @@ void Cam_Init()
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_6; 
     GPIO_Init(GPIOA, &GPIO_InitStructure);		 
 
-		DCMI_CROPInitStructure.DCMI_CaptureCount=160;
-		DCMI_CROPInitStructure.DCMI_HorizontalOffsetCount=0x00;
-		DCMI_CROPInitStructure.DCMI_VerticalLineCount=120;
-		DCMI_CROPInitStructure.DCMI_VerticalStartLine=0x00;
+		DCMI_CROPInitStructure.DCMI_CaptureCount=319;
+		DCMI_CROPInitStructure.DCMI_HorizontalOffsetCount=1;
+		DCMI_CROPInitStructure.DCMI_VerticalLineCount=119;
+		DCMI_CROPInitStructure.DCMI_VerticalStartLine=1;
 		DCMI_CROPConfig(&DCMI_CROPInitStructure);
 		DCMI_CROPCmd(ENABLE);
 		

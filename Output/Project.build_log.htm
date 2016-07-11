@@ -27,14 +27,18 @@ Project File Date:  07/10/2016
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\Bin'
 Build target 'SY-STM32F407 V2.0'
-compiling dgp.c...
+compiling ov7670.c...
 ..\Hardware\ov7670\ov7670.h(21): warning:  #1295-D: Deprecated declaration Cam_Init - give arg types
   void Cam_Init();
-..\User\dgp.c: 1 warning, 0 errors
+..\Hardware\ov7670\ov7670.c(142): warning:  #550-D: variable "id" was set but never used
+        u8 i,id;
+..\Hardware\ov7670\ov7670.c(191): warning:  #550-D: variable "state" was set but never used
+        u8 state,temp;
+..\Hardware\ov7670\ov7670.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=13564 RO-data=1356 RW-data=408 ZI-data=40136  
+Program Size: Code=13568 RO-data=1356 RW-data=408 ZI-data=40136  
 FromELF: creating hex file...
-"..\Output\Project.axf" - 0 Error(s), 1 Warning(s).
+"..\Output\Project.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 

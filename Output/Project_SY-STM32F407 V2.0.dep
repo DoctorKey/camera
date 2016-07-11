@@ -229,7 +229,7 @@ I (..\Startup\sys.h)(0x55CC1471)
 I (..\User\include.h)(0x5783110D)
 I (..\Hardware\led\led.h)(0x57805606)
 I (..\Hardware\pwm_out.h)(0x5780A404)
-F (..\Hardware\ov7670\ov7670.c)(0x578357CB)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS\inc -I..\Libraries\FWlib\inc -I..\Startup -I..\User -I..\Hardware\delay -I..\Hardware\led -I..\Hardware\usart -I..\Hardware\lcd -I..\Hardware\ov7670 -I..\Hardware -I..\usmart-I F:\electricity\光电设计大赛\camera\Project\RTE-I F:\electricity\MCU\STM32\mdk515\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I F:\electricity\MCU\STM32\mdk515\ARM\PACK\Keil\STM32F4xx_DFP\2.5.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o ..\output\ov7670.o --omf_browse ..\output\ov7670.crf --depend ..\output\ov7670.d)
+F (..\Hardware\ov7670\ov7670.c)(0x5783759D)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS\inc -I..\Libraries\FWlib\inc -I..\Startup -I..\User -I..\Hardware\delay -I..\Hardware\led -I..\Hardware\usart -I..\Hardware\lcd -I..\Hardware\ov7670 -I..\Hardware -I..\usmart-I F:\electricity\光电设计大赛\camera\Project\RTE-I F:\electricity\MCU\STM32\mdk515\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I F:\electricity\MCU\STM32\mdk515\ARM\PACK\Keil\STM32F4xx_DFP\2.5.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o ..\output\ov7670.o --omf_browse ..\output\ov7670.crf --depend ..\output\ov7670.d)
 I (..\Hardware\ov7670\ov7670.h)(0x57827771)
 I (..\User\stm32f4xx_conf.h)(0x5779EC7D)
 I (..\Libraries\FWlib\inc\stm32f4xx_dcmi.h)(0x4EAA13FA)
@@ -255,9 +255,9 @@ I (F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (..\Hardware\pwm_out.h)(0x5780A404)
 I (..\Hardware\delay\delay.h)(0x50740556)
 I (..\User\dgp.h)(0x5782FF87)
-I (..\Hardware\ov7670\ov7670cfg.h)(0x5782FE97)
+I (..\Hardware\ov7670\ov7670cfg.h)(0x57837675)
 F (..\Hardware\ov7670\ov7670.h)(0x57827771)()
-F (..\Hardware\ov7670\ov7670cfg.h)(0x5782FE97)()
+F (..\Hardware\ov7670\ov7670cfg.h)(0x57837675)()
 F (..\Hardware\pwm_out.c)(0x5780A4FF)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS\inc -I..\Libraries\FWlib\inc -I..\Startup -I..\User -I..\Hardware\delay -I..\Hardware\led -I..\Hardware\usart -I..\Hardware\lcd -I..\Hardware\ov7670 -I..\Hardware -I..\usmart-I F:\electricity\光电设计大赛\camera\Project\RTE-I F:\electricity\MCU\STM32\mdk515\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I F:\electricity\MCU\STM32\mdk515\ARM\PACK\Keil\STM32F4xx_DFP\2.5.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o ..\output\pwm_out.o --omf_browse ..\output\pwm_out.crf --depend ..\output\pwm_out.d)
 I (..\Hardware\pwm_out.h)(0x5780A404)
 I (..\Libraries\CMSIS\inc\stm32f4xx.h)(0x4EAA13F6)
