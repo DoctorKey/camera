@@ -4,19 +4,7 @@
 #include "ov7670cfg.h"
 
 __align(4) u32 jpeg_buf[jpeg_buf_size];
-u8 ov_frame=0;  						//帧率
 
-//DCMI中断服务函数
-void DCMI_IRQHandler(void)
-{
-	if(DCMI_GetITStatus(DCMI_IT_FRAME)==SET)//捕获到一帧图像
-	{
-		jpeg_data_process(); 	//jpeg数据处理	
-		DCMI_ClearITPendingBit(DCMI_IT_FRAME);//清除帧中断
-//		LED1=!LED1;
-		ov_frame++;  
-	}
-} 
 
 //DCMI DMA配置
 //DMA_Memory0BaseAddr:存储器地址    将要存储摄像头数据的内存地址(也可以是外设地址)
@@ -119,23 +107,24 @@ void Cam_Init()
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_6; 
     GPIO_Init(GPIOA, &GPIO_InitStructure);		 
 
-		DCMI_CROPInitStructure.DCMI_CaptureCount=0x1e0;
+		DCMI_CROPInitStructure.DCMI_CaptureCount=160;
 		DCMI_CROPInitStructure.DCMI_HorizontalOffsetCount=0x00;
-		DCMI_CROPInitStructure.DCMI_VerticalLineCount=0xa0;
+		DCMI_CROPInitStructure.DCMI_VerticalLineCount=120;
 		DCMI_CROPInitStructure.DCMI_VerticalStartLine=0x00;
 		DCMI_CROPConfig(&DCMI_CROPInitStructure);
 		DCMI_CROPCmd(ENABLE);
 		
   	DCMI_InitStructure.DCMI_CaptureMode =DCMI_CaptureMode_Continuous;// DCMI_CaptureMode_SnapShot;//DCMI_CaptureMode_Continuous;
   	DCMI_InitStructure.DCMI_SynchroMode = DCMI_SynchroMode_Hardware;
-  	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Rising;
+  	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Falling;
   	DCMI_InitStructure.DCMI_VSPolarity = DCMI_VSPolarity_High;
   	DCMI_InitStructure.DCMI_HSPolarity = DCMI_HSPolarity_Low;
-  	DCMI_InitStructure.DCMI_CaptureRate = DCMI_CaptureRate_All_Frame;
+  	DCMI_InitStructure.DCMI_CaptureRate = DCMI_CaptureRate_1of4_Frame;
   	DCMI_InitStructure.DCMI_ExtendedDataMode = DCMI_ExtendedDataMode_8b;
   	DCMI_Init(&DCMI_InitStructure); 
 		
 		DCMI_ITConfig(DCMI_IT_FRAME,ENABLE);//开启帧中断 
+//		DCMI_ITConfig(DCMI_IT_OVF,ENABLE);//开启溢出中断 
 	
 		DCMI_Cmd(ENABLE);	//DCMI使能
 	
@@ -172,12 +161,17 @@ u8 OV7670_Init(void)
 //  	{
 //    	if(OV_WriteReg(OV7670_Reg_2[i][0],OV7670_Reg_2[i][1]))return 1;
 //  	}
+		
+//	OV7670_HW(192,192,842,442);
+		OV7670_config_window(184,10,320,120);
+		
 	return 0; 
 }
 //DCMI,启动传输
 void DCMI_Start(void)
 {  
-	DMA_Cmd(DMA2_Stream1, ENABLE);//开启DMA2,Stream1 
+	DMA_Cmd(DMA2_Stream1, ENABLE);//开启DMA2,Stream1
+	delay_ms(100);
 	DCMI_CaptureCmd(ENABLE);//DCMI捕获使能  
 }
 //DCMI,关闭传输
@@ -188,7 +182,34 @@ void DCMI_Stop(void)
 	while(DCMI->CR&0X01);		//等待传输结束 
 	 	
 	DMA_Cmd(DMA2_Stream1,DISABLE);//关闭DMA2,Stream1
-} 							  
+} 
+void OV7670_config_window(u16 startx,u16 starty,u16 width, u16 height)
+{
+	u16 endx=(startx+width*2)%784;
+	u16 endy=(starty+height*2);
+	u8 x_reg, y_reg;
+	u8 state,temp;
+	
+	state = OV_ReadReg(0x32, &x_reg );
+	x_reg &= 0xC0;
+	state = OV_ReadReg(0x03, &y_reg );
+	y_reg &= 0xF0;
+	
+	//HREF
+	temp = x_reg|((endx&0x7)<<3)|(startx&0x7);
+	state = OV_WriteReg(0x32, temp );
+	temp = (startx&0x7F8)>>3;
+	state = OV_WriteReg(0x17, temp );
+	temp = (endx&0x7F8)>>3;
+	state = OV_WriteReg(0x18, temp );
+	//VREF
+	temp = y_reg|((endy&0x3)<<2)|(starty&0x3);
+	state = OV_WriteReg(0x03, temp );
+	temp = (starty&0x3FC)>>2;
+	state = OV_WriteReg(0x19, temp );
+	temp = (endy&0x3FC)>>2;
+	state = OV_WriteReg(0x1A, temp );
+}
 void OV7670_HW(u16 hstart,u16 vstart,u16 hstop,u16 vstop)
 {
 	u8 v;		

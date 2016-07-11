@@ -31,17 +31,26 @@ int main(void)
   	while(1)
 	{
 		if(jpeg_data_ok==1)	//已经采集完一帧图像了
-		{  
+		{ 			
+//			i=jpeg_data_len*4;
+			i=jpeg_buf_size*4;
 			p=(u8*)jpeg_buf;
 			LED0(On);
-			USART_SendString_bysize(USART2,p,i*4);
-			USART_SendData(USART2,255);
+			USART_SendString_bysize(USART2,p,i);
+//			USART_SendData(USART2,255);
 			delay_ms(300);
 			LED0(Off);
 			jpeg_data_ok=2;	//标记jpeg数据处理完了,可以让DMA去采集下一帧了.
 		}		
-		
-		delay_ms(300);
+//		p=(u8*)jpeg_buf;
+//			LED0(On);
+//			USART_SendString_bysize(USART2,p,i*4);
+//			USART_SendData(USART2,255);
+//			delay_ms(300);
+//			LED0(Off);
+//		DCMI_Start();
+//		delay_ms(2000);
+//		DCMI_Stop();
 		LED0(Off);	
 	}
 }

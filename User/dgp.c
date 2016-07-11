@@ -3,6 +3,25 @@
 #include "ov7670.h"
 
 //u32 jpeg_buf[jpeg_buf_size];
+u8 ov_frame=0;  						//帧率
+u8 frame_count=0;//控制帧率
+u16 over_count=0;
+//DCMI中断服务函数
+void DCMI_IRQHandler(void)
+{
+		if(DCMI_GetITStatus(DCMI_IT_FRAME)==SET)//捕获到一帧图像
+		{
+				jpeg_data_process(); 	//jpeg数据处理	
+				DCMI_ClearITPendingBit(DCMI_IT_FRAME);//清除帧中断
+				ov_frame++;	
+		}
+		if(DCMI_GetITStatus(DCMI_IT_OVF)==SET)//溢出中断
+		{
+				over_count++;				
+				DCMI_ClearITPendingBit(DCMI_IT_OVF);
+		}
+} 
+
 volatile u32 jpeg_data_len=0; 			//buf中的JPEG有效数据长度 
 volatile u8 jpeg_data_ok=0;				//JPEG数据采集完成标志 
 										//0,数据没有采集完;
@@ -13,9 +32,12 @@ volatile u8 jpeg_data_ok=0;				//JPEG数据采集完成标志
 //当采集完一帧JPEG数据后,调用此函数,切换JPEG BUF.开始下一帧采集.
 void jpeg_data_process(void)
 {
-		u8 *p;
 		if(jpeg_data_ok==0)	//jpeg数据还未采集完?
-		{	
+		{
+//			while (DMA_GetFlagStatus(DMA2_Stream1,DMA_FLAG_TCIF1)!=RESET)
+//				delay_ms(10);
+//			printf("传输完成\r\n");
+//			DMA_ClearFlag(DMA2_Stream1,DMA_FLAG_TCIF1);
 			DMA_Cmd(DMA2_Stream1, DISABLE);//停止当前传输 
 			while (DMA_GetCmdStatus(DMA2_Stream1) != DISABLE){}//等待DMA2_Stream1可配置  
 			jpeg_data_len=jpeg_buf_size-DMA_GetCurrDataCounter(DMA2_Stream1);//得到此次数据传输的长度
