@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Component Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'Project' 
+ * Project: 'camera_ov7670' 
  * Target:  'SY-STM32F407 V2.0' 
  */
 

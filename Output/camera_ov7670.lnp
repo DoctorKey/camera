@@ -29,7 +29,7 @@
 "..\output\usmart.o"
 "..\output\usmart_config.o"
 "..\output\usmart_str.o"
---library_type=microlib --strict --scatter "..\Output\Project.sct"
+--library_type=microlib --strict --scatter "..\Output\camera_ov7670.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
---list "..\Listings\Project.map" -o ..\Output\Project.axf
+--list "..\Listings\camera_ov7670.map" -o ..\Output\camera_ov7670.axf

@@ -878,8 +878,7 @@ void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
       if (pllsource != 0)
       {
         /* HSE used as PLL clock source */
-        //pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
-				pllvco = 0x1406f400;
+        pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
       }
       else
       {

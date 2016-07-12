@@ -36,9 +36,9 @@ int main(void)
 			i=jpeg_buf_size*4;
 			p=(u8*)jpeg_buf;
 			LED0(On);
+			USART_SendData(USART2,255);
 			USART_SendString_bysize(USART2,p,i);
-//			USART_SendData(USART2,255);
-			delay_ms(300);
+//			delay_ms(300);
 			LED0(Off);
 			jpeg_data_ok=2;	//标记jpeg数据处理完了,可以让DMA去采集下一帧了.
 		}		

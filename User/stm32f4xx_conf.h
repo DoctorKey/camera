@@ -24,9 +24,9 @@
 #define __STM32F4xx_CONF_H
 
 
-#if defined  (HSE_VALUE)//重新定义晶振频率,板上为8 MHz
+#if defined  (HSE_VALUE)//重新定义晶振频率,板上为25MHz
  #undef HSE_VALUE
- #define HSE_VALUE    ((uint32_t)8000000) 
+ #define HSE_VALUE    ((uint32_t)25000000) 
 #endif
 
 /* Includes ------------------------------------------------------------------*/
