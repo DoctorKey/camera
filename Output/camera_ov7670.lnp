@@ -6,6 +6,7 @@
 "..\output\init.o"
 "..\output\dgp.o"
 "..\output\mymath.o"
+"..\output\test.o"
 "..\output\delay.o"
 "..\output\led.o"
 "..\output\usart.o"

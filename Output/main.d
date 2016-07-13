@@ -29,3 +29,4 @@
 ..\output\main.o: ..\usmart\usmart.h
 ..\output\main.o: ..\usmart\usmart_str.h
 ..\output\main.o: ..\User\dgp.h
+..\output\main.o: ..\User\test.h

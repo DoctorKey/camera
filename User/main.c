@@ -8,8 +8,10 @@
 #include "ctrl.h"
 #include "usmart.h"
 #include "dgp.h"
+#include "test.h"
 
 u8 Init_Finish = 0;
+extern char mode;
 /*************************************************************************************
   * 函数名称：main()
   * 参数    ：void
@@ -18,30 +20,29 @@ u8 Init_Finish = 0;
   *************************************************************************************/
 int main(void)
 { 
-	u8 *p;
-	u16 *jpeg;
-	u32 i;
 	
 	Init_Finish=All_Init();
 
   delay_ms(100);
 	ctrl_pwm(CH);
-	i=jpeg_buf_size;
   	while(1)
 	{
 		if(jpeg_data_ok==1)	//已经采集完一帧图像了
-		{ 			
-//			i=jpeg_data_len*4;
-//			i=jpeg_buf_size*4;
-			i=PIC_COL*PIC_ROW;
-			jpeg=(u16*)jpeg_buf;
-			getH_op1(jpeg,RGB);
-			LED0(On);
-//			USART_SendData(USART2,255);
-			USART_SendString_bysize(USART2,RGB,i);
-			USART_SendData(USART2,255);
-//			delay_ms(300);
-			LED0(Off);
+		{ 	
+				switch(mode){
+					case 'M':matlab_test(jpeg_buf,im);
+						break;
+					case 'R':R_test(jpeg_buf,im);
+						break;
+					case 'G':G_test(jpeg_buf,im);
+						break;
+					case 'B':B_test(jpeg_buf,im);
+						break;
+					case 'H':H_test(jpeg_buf,im);
+						break;
+					case 'Y':Y_test(jpeg_buf,im);
+						break;
+				}
 			jpeg_data_ok=2;	//标记jpeg数据处理完了,可以让DMA去采集下一帧了.
 		}		
 		LED0(Off);	

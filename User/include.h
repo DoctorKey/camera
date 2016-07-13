@@ -6,6 +6,12 @@
 #include "usart.h"
 #include "pwm_out.h"
 
+#if __FPU_USED==1
+#define SCORE_FPU_MODE                  //\"FPU On\" 
+#else
+#define SCORE_FPU_MODE                  //\"FPU Off\" 
+#endif
+
 /***************中断优先级******************/
 #define NVIC_GROUP NVIC_PriorityGroup_3		//中断分组选择 0~7抢占 0~1响应
 #define NVIC_PWMIN_P			1		//接收机采集

@@ -3,6 +3,7 @@
 
 extern u8 ov_frame;
 extern volatile u16 jpeg_data_len;
+extern char mode;
 
 //通用定时器3中断初始化
 //arr：自动重装值。
@@ -42,6 +43,7 @@ void TIM3_IRQHandler(void)
 	{
 		printf("frame:%d\r\n",ov_frame);//打印帧率
 		printf("jpeg_data_len:%d\r\n",jpeg_data_len);//打印帧率
+		printf("mode:%c\r\n",mode);
 		ov_frame=0;
 	}
 	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //清除中断标志位

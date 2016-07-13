@@ -6,6 +6,7 @@
 #include "sys.h"
 #include "led.h"		
 #include "ov7670.h"
+#include "test.h"
 
 //extern void led_set(u8 sta);
 //extern void test_fun(void(*ledset)(u8),u8 sta);
@@ -21,6 +22,7 @@ struct _m_usmart_nametab usmart_nametab[]=
  	(void*)delay_us,"void delay_us(u32 nus)",	 
 	(void*)LED_SET,"void LED_SET(u8 mode)",
 	(void*)OV_WriteReg,"u8 OV_WriteReg(u8 regID, u8 regDat)",
+	(void*)test_mode,"void test_mode(char command)",
 //	(void*)led_set,"void led_set(u8 sta)",
 //	(void*)test_fun,"void test_fun(void(*ledset)(u8),u8 sta)",				  	    
 };						  

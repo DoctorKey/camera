@@ -54,14 +54,51 @@ void getR(u16 *jpeg,u8 *R)
 	{
 		for(j=0;j<PIC_COL;j++)
 		{
-			*(R+i*PIC_COL+j)=((*(jpeg+i*PIC_COL+j))&0x1f)*8;
+			*(R+i*PIC_COL+j)=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;
 		}
 	}
 }
-void getG()
-{}
-void getB()
-{}
+void getG(u16 *jpeg,u8 *G)
+{
+	u16 i,j;
+	for(i=0;i<PIC_ROW;i++)
+	{
+		for(j=0;j<PIC_COL;j++)
+		{
+			*(G+i*PIC_COL+j)=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;
+		}
+	}
+}
+void getB(u16 *jpeg,u8 *B)
+{
+	u16 i,j;
+	for(i=0;i<PIC_ROW;i++)
+	{
+		for(j=0;j<PIC_COL;j++)
+		{
+			*(B+i*PIC_COL+j)=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;
+		}
+	}
+}
+void getY(u16 *jpeg,u8 *Y)//获得亮度
+{
+	u8 R,G,B;
+	float y_tmp;
+	u16 i,j;
+	for(i=0;i<PIC_ROW;i++)
+	{
+		for(j=0;j<PIC_COL;j++)
+		{
+			R=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;//R
+			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;//G
+			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;//B
+			
+			y_tmp=0.3*R+0.59*G+0.11*B;
+			
+			*(Y+i*PIC_COL+j)=y_tmp;
+		}
+	}
+}
 void getH(u16 *jpeg,u8 *H)
 {
 	u8 R,G,B;
@@ -71,16 +108,18 @@ void getH(u16 *jpeg,u8 *H)
 	{
 		for(j=0;j<PIC_COL;j++)
 		{
-			R=(*(jpeg+i*PIC_COL+j))&0x1f;//R
-			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>5;//G
-			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>11;//B
-			
-			R=R*8;
-			B=B*8;
-			G=G*4;
+			R=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;//R
+			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;//G
+			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;//B
 			
 			if		 (R>B&&B>G){
 				h_tmp=((G-B)/(R-G))*PI_3;
+			}
+			else if(R>G&&G>B){
+				h_tmp=((G-B)/(R-B))*PI_3;
+			}
+			else if(G>R&&R>B){
+				h_tmp=((B-R)/(G-B)+2)*PI_3;
 			}
 			else if(G>B&&B>R){
 				h_tmp=((B-R)/(G-R)+2)*PI_3;
@@ -88,17 +127,10 @@ void getH(u16 *jpeg,u8 *H)
 			else if(B>R&&R>G){
 				h_tmp=((R-G)/(B-G)+4)*PI_3;
 			}
-			else if(G>R&&R>B){
-				h_tmp=((B-R)/(G-B)+2)*PI_3;
-			}
 			else if(B>G&&G>R){
 				h_tmp=((R-G)/(B-R)+4)*PI_3;
 			}
-			else if(R>G&&G>B){
-				h_tmp=((G-B)/(R-B))*PI_3;
-			}
-
-//			H=(u8)((h_tmp<0?h_tmp+TWO_PI:h_tmp)*40);			
+					
 			*(H+i*PIC_COL+j)=((h_tmp<0?h_tmp+TWO_PI:h_tmp)*40);
 		}
 	}
@@ -113,13 +145,9 @@ void getH_op1(u16 *jpeg,u8 *H)//去掉MAX=B的情况，去掉H<0的情况
 	{
 		for(j=0;j<PIC_COL;j++)
 		{
-			R=(*(jpeg+i*PIC_COL+j))&0x1f;//R
-			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>5;//G
-			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>11;//B
-			
-			R=R*8;
-			B=B*8;
-			G=G*4;
+			R=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;//R
+			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;//G
+			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;//B
 			
 			h_tmp=TWO_PI;
 			if		 (R>B&&B>G){
@@ -139,3 +167,4 @@ void getH_op1(u16 *jpeg,u8 *H)//去掉MAX=B的情况，去掉H<0的情况
 		}
 	}
 }
+

@@ -4,7 +4,7 @@
 #include "ov7670cfg.h"
 
 __align(4) u32 jpeg_buf[jpeg_buf_size];
-__align(1) u8 RGB[PIC_ROW*PIC_COL];
+__align(1) u8 im[PIC_ROW*PIC_COL];
 
 //DCMI DMA配置
 //DMA_Memory0BaseAddr:存储器地址    将要存储摄像头数据的内存地址(也可以是外设地址)
