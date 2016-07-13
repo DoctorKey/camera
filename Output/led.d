@@ -18,3 +18,4 @@
 ..\output\led.o: ..\Libraries\FWlib\inc\stm32f4xx_tim.h
 ..\output\led.o: ..\Libraries\FWlib\inc\stm32f4xx_usart.h
 ..\output\led.o: ..\Libraries\FWlib\inc\misc.h
+..\output\led.o: ..\Hardware\delay\delay.h

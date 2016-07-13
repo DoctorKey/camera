@@ -18,10 +18,9 @@
 #define OV7670_RST(x)  	(x?(GPIO_SetBits(GPIOD,GPIO_Pin_7)):(GPIO_ResetBits(GPIOD,GPIO_Pin_7)))			//¸´Î»¿ØÖÆÐÅºÅ 
 
 void DCMI_DMA_Init(u32 DMA_Memory0BaseAddr,u16 DMA_BufferSize,u32 DMA_MemoryDataSize,u32 DMA_MemoryInc);
-void Cam_Init();
+void Cam_Init(void);
 u8 OV7670_Init(void);
 void OV7670_config_window(u16 startx,u16 starty,u16 width, u16 height);
-void OV7670_HW(u16 hstart,u16 vstart,u16 hstop,u16 vstop);
 void SCCB_Init(void);
 void SCCB_SID_OUT(void);
 void SCCB_SID_IN(void);
@@ -39,6 +38,7 @@ void DCMI_Start(void);
 void DCMI_Stop(void);
 
 extern u32 jpeg_buf[jpeg_buf_size];
+extern u8 RGB[PIC_ROW*PIC_COL];
 
 #endif 
 

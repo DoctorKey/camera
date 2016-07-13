@@ -25,8 +25,8 @@
 /***********************************************/
 
 /***************picture******************/
-#define PIC_ROW 120
-#define PIC_COL 160
+#define PIC_ROW 160
+#define PIC_COL 120
 #define jpeg_buf_size (PIC_ROW*PIC_COL/2)
 /***********************************************/
 

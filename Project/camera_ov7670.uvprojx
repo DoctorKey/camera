@@ -488,14 +488,29 @@
               <FilePath>..\Hardware\delay\delay.c</FilePath>
             </File>
             <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\delay\delay.h</FilePath>
+            </File>
+            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\led\led.c</FilePath>
             </File>
             <File>
+              <FileName>led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\led\led.h</FilePath>
+            </File>
+            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\usart\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\usart\usart.h</FilePath>
             </File>
             <File>
               <FileName>ov7670.c</FileName>

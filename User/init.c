@@ -1,6 +1,10 @@
 #include "init.h"
 #include "include.h"
 #include "usmart.h"
+#include "delay.h"
+#include "timer.h"
+#include "ov7670.h"
+#include "led.h"
 
 u8 All_Init()
 {
@@ -14,7 +18,7 @@ u8 All_Init()
 		
 	Usart2_Init(115200);
 	
-	PWM_Out_Init(50);				//初始化PWM输出功能
+	PWM_Out_Init(50);				//初始化PWM输出功能,50Hz
 	
 	uart_init(115200);
 	
@@ -24,14 +28,7 @@ u8 All_Init()
 	
 	if(OV7670_Init())
 	{
-		while(1)
-		{
-			LED0(On);
-			delay_ms(300);
-			LED0(Off);
-			delay_ms(300);	
-			USART_SendData(USART2,00);			
-		}
+		ov7670_error();
 	}
 
 	delay_ms(1000);

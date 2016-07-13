@@ -1,7 +1,7 @@
 #ifndef __LED_H
 #define __LED_H
-#include "stm32f4xx.h"
 
+#include "stm32f4xx.h"
 
 #define On      0
 #define Off     1
@@ -9,5 +9,6 @@
 
 void LED_GPIO_Conf(void);
 void LED_SET(u8 mode);
+void ov7670_error(void);
 
 #endif

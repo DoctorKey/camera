@@ -4,7 +4,7 @@
 #include "ov7670cfg.h"
 
 __align(4) u32 jpeg_buf[jpeg_buf_size];
-
+__align(1) u8 RGB[PIC_ROW*PIC_COL];
 
 //DCMI DMA配置
 //DMA_Memory0BaseAddr:存储器地址    将要存储摄像头数据的内存地址(也可以是外设地址)
@@ -124,7 +124,6 @@ void Cam_Init()
   	DCMI_Init(&DCMI_InitStructure); 
 		
 		DCMI_ITConfig(DCMI_IT_FRAME,ENABLE);//开启帧中断 
-//		DCMI_ITConfig(DCMI_IT_OVF,ENABLE);//开启溢出中断 
 	
 		DCMI_Cmd(ENABLE);	//DCMI使能
 	
@@ -149,20 +148,11 @@ u8 OV7670_Init(void)
 //  	{
 //    	if(OV_WriteReg(OV7670_reg[i][0],OV7670_reg[i][1]))return 1;
 //  	}
-//		for(i=0;i<sizeof(OV7670_Reg_new)/sizeof(OV7670_Reg_new[0]);i++)
-//  	{
-//    	if(OV_WriteReg(OV7670_Reg_new[i][0],OV7670_Reg_new[i][1]))return 1;
-//  	}
 		for(i=0;i<sizeof(ov7670_init_reg_tbl)/sizeof(ov7670_init_reg_tbl[0]);i++)
 		{
 	   	OV_WriteReg(ov7670_init_reg_tbl[i][0],ov7670_init_reg_tbl[i][1]);
   	}
-//		for(i=0;i<sizeof(OV7670_Reg_2)/sizeof(OV7670_Reg_2[0]);i++)
-//  	{
-//    	if(OV_WriteReg(OV7670_Reg_2[i][0],OV7670_Reg_2[i][1]))return 1;
-//  	}
-		
-//	OV7670_HW(192,192,842,442);
+
 		OV7670_config_window(184,10,320,120);
 		
 	return 0; 
@@ -188,44 +178,28 @@ void OV7670_config_window(u16 startx,u16 starty,u16 width, u16 height)
 	u16 endx=(startx+width*2)%784;
 	u16 endy=(starty+height*2);
 	u8 x_reg, y_reg;
-	u8 state,temp;
+	u8 temp;
 	
-	state = OV_ReadReg(0x32, &x_reg );
+	OV_ReadReg(0x32, &x_reg );
 	x_reg &= 0xC0;
-	state = OV_ReadReg(0x03, &y_reg );
+	OV_ReadReg(0x03, &y_reg );
 	y_reg &= 0xF0;
 	
 	//HREF
 	temp = x_reg|((endx&0x7)<<3)|(startx&0x7);
-	state = OV_WriteReg(0x32, temp );
+	OV_WriteReg(0x32, temp );
 	temp = (startx&0x7F8)>>3;
-	state = OV_WriteReg(0x17, temp );
+	OV_WriteReg(0x17, temp );
 	temp = (endx&0x7F8)>>3;
-	state = OV_WriteReg(0x18, temp );
+	OV_WriteReg(0x18, temp );
 	//VREF
 	temp = y_reg|((endy&0x3)<<2)|(starty&0x3);
-	state = OV_WriteReg(0x03, temp );
+	OV_WriteReg(0x03, temp );
 	temp = (starty&0x3FC)>>2;
-	state = OV_WriteReg(0x19, temp );
+	OV_WriteReg(0x19, temp );
 	temp = (endy&0x3FC)>>2;
-	state = OV_WriteReg(0x1A, temp );
-}
-void OV7670_HW(u16 hstart,u16 vstart,u16 hstop,u16 vstop)
-{
-	u8 v;		
-	OV_WriteReg(0x17,(hstart>>3)&0xff);//HSTART
-	OV_WriteReg(0x18,(hstop>>3)&0xff);//HSTOP
-	OV_ReadReg(0x32,&v);
-	v=(v&0xc0)|((hstop&0x7)<<3)|(hstart&0x7);
-	OV_WriteReg(0x32,v);//HREF
-	
-	OV_WriteReg(0x19,(vstart>>2)&0xff);//VSTART 开始高8位
-	OV_WriteReg(0x1a,(vstop>>2)&0xff);//VSTOP	结束高8位
-	OV_ReadReg(0x03,&v);
-	v=(v&0xf0)|((vstop&0x3)<<2)|(vstart&0x3);	
-	OV_WriteReg(0x03,v);//VREF																 
-	OV_WriteReg(0x11,0x00);
-}			
+	OV_WriteReg(0x1A, temp );
+}		
 void OV_Reset(void)
 {
 	OV_WriteReg(0x12,0x80);

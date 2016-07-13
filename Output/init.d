@@ -25,3 +25,7 @@
 ..\output\init.o: ..\Hardware\pwm_out.h
 ..\output\init.o: ..\usmart\usmart.h
 ..\output\init.o: ..\usmart\usmart_str.h
+..\output\init.o: ..\Hardware\delay\delay.h
+..\output\init.o: ..\Hardware\timer.h
+..\output\init.o: ..\Startup\sys.h
+..\output\init.o: ..\Hardware\ov7670\ov7670.h

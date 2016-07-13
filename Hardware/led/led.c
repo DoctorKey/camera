@@ -1,4 +1,5 @@
 #include "led.h"
+#include "delay.h"
 
 void LED_GPIO_Conf(void)
 {
@@ -18,4 +19,15 @@ void LED_SET(u8 mode)
 		LED0(0);
 	else
 		LED0(1);
+}
+void ov7670_error(void)
+{
+	while(1)
+		{
+			LED0(On);
+			delay_ms(300);
+			LED0(Off);
+			delay_ms(300);	
+			USART_SendData(USART2,00);			
+		}
 }
