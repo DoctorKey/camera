@@ -34,6 +34,9 @@
 #define PIC_ROW 160
 #define PIC_COL 120
 #define jpeg_buf_size (PIC_ROW*PIC_COL/2)
+
+#define LOW_THRESHOLD 0   //从H中二值化红色的低阈值
+#define HIGH_THRESHOLD 25   //从H中二值化红色的高阈值
 /***********************************************/
 
 /***************ctrl******************/

@@ -1,9 +1,11 @@
 #include "timer.h"
 #include "include.h"
+#include "dgp.h"
 
 extern u8 ov_frame;
-extern volatile u16 jpeg_data_len;
+//extern volatile u16 jpeg_data_len;
 extern char mode;
+extern R_info info;
 
 //通用定时器3中断初始化
 //arr：自动重装值。
@@ -44,7 +46,22 @@ void TIM3_IRQHandler(void)
 		printf("frame:%d\r\n",ov_frame);//打印帧率
 		printf("jpeg_data_len:%d\r\n",jpeg_data_len);//打印帧率
 		printf("mode:%c\r\n",mode);
+		printf("x:%d,y:%d,ratio:%f\r\n",info.x,info.y,info.ratio);
+		printf("time:%d\r\n",GetSysTime_us()*1000000);
 		ov_frame=0;
 	}
 	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //清除中断标志位
+}
+volatile uint32_t sysTickUptime = 0;
+
+#define TICK_PER_SECOND 1000 
+#define TICK_US	(1000000/TICK_PER_SECOND)
+
+uint32_t GetSysTime_us(void) 
+{
+	register uint32_t ms;
+	u32 value;
+	ms = sysTickUptime;
+	value = ms * TICK_US + (SysTick->LOAD - SysTick->VAL) * TICK_US / SysTick->LOAD;
+	return value;
 }

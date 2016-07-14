@@ -40,7 +40,11 @@ int main(void)
 						break;
 					case 'H':H_test(jpeg_buf,im);
 						break;
+					case 'h':H_test_op1(jpeg_buf,im);
+						break;
 					case 'Y':Y_test(jpeg_buf,im);
+						break;
+					case 'D':D_test(jpeg_buf,im);
 						break;
 				}
 			jpeg_data_ok=2;	//标记jpeg数据处理完了,可以让DMA去采集下一帧了.

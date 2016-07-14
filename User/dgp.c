@@ -113,25 +113,30 @@ void getH(u16 *jpeg,u8 *H)
 			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;//B
 			
 			if		 (R>B&&B>G){
-				h_tmp=((G-B)/(R-G))*PI_3;
+				h_tmp=(float)((G-B)/(R-G))*PI_3_40;
 			}
 			else if(R>G&&G>B){
-				h_tmp=((G-B)/(R-B))*PI_3;
+				h_tmp=(float)((G-B)/(R-B))*PI_3_40;
 			}
 			else if(G>R&&R>B){
-				h_tmp=((B-R)/(G-B)+2)*PI_3;
+				h_tmp=(float)((B-R)/(G-B)+2)*PI_3_40;
 			}
 			else if(G>B&&B>R){
-				h_tmp=((B-R)/(G-R)+2)*PI_3;
+				h_tmp=(float)((B-R)/(G-R)+2)*PI_3_40;
 			}
 			else if(B>R&&R>G){
-				h_tmp=((R-G)/(B-G)+4)*PI_3;
+				h_tmp=(float)((R-G)/(B-G)+4)*PI_3_40;
 			}
 			else if(B>G&&G>R){
-				h_tmp=((R-G)/(B-R)+4)*PI_3;
+				h_tmp=(float)((R-G)/(B-R)+4)*PI_3_40;
 			}
 					
-			*(H+i*PIC_COL+j)=((h_tmp<0?h_tmp+TWO_PI:h_tmp)*40);
+			if(h_tmp<0)
+			{
+				h_tmp += TWO_PI*40;
+			}
+			
+			*(H+i*PIC_COL+j)=h_tmp;
 		}
 	}
 }
@@ -166,5 +171,61 @@ void getH_op1(u16 *jpeg,u8 *H)//去掉MAX=B的情况，去掉H<0的情况
 			*(H+i*PIC_COL+j)=(h_tmp*40);
 		}
 	}
+}
+void getH_op1_getR(u16 *jpeg,u8 *H,R_info *info)//去掉MAX=B的情况，去掉H<0的情况
+{
+	u8 R,G,B;
+	float h_tmp;
+	u16 i,j,count_x=0,count_y=0;
+	u32 x=0,y=0;
+	for(i=0;i<PIC_ROW;i++)
+	{
+		for(j=0;j<PIC_COL;j++)
+		{
+			R=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;//R
+			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;//G
+			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;//B
+					
+			h_tmp=TWO_PI;
+			if		 (R>B&&B>G){
+				h_tmp=(float)((G-B)/(R-G))*PI_3_40;
+			}
+			else if(R>G&&G>B){
+				h_tmp=(float)((G-B)/(R-B))*PI_3_40;
+			}
+			else if(G>B&&B>R){
+				h_tmp=(float)((B-R)/(G-R)+2)*PI_3_40;
+			}
+			else if(G>R&&R>B){
+				h_tmp=(float)((B-R)/(G-B)+2)*PI_3_40;
+			}
+					
+			if(h_tmp<HIGH_THRESHOLD&&h_tmp>LOW_THRESHOLD)
+			{
+				x+=i; //row
+				count_x++;
+				y+=j; //col
+				count_y++;
+			}
+			*(H+i*PIC_COL+j)=h_tmp;
+		}
+	}
+	
+	info->x = x/count_x;
+	info->y = y/count_y;
+	info->ratio = (float)count_x/(PIC_ROW*PIC_COL);
+	
+	j=info->y;
+	for(i=info->x-3;i<info->x+4;i++)
+	{
+		*(H+i*PIC_COL+j)=254;
+	}
+
+	i=info->x;
+	for(j=info->y-3;j<info->y+4;j++)
+	{
+		*(H+i*PIC_COL+j)=254;
+	}
+
 }
 
