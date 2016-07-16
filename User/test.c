@@ -2,6 +2,15 @@
 #include "dgp.h"
 #include "include.h"
 
+void im_send(u8* im)
+{
+	u32 i;
+	i=PIC_COL*PIC_ROW;
+	LED0(On);
+	USART_SendString_bysize(USART2,im,i);
+	USART_SendData(USART2,255);
+	LED0(Off);
+}
 void matlab_test(u32* jpeg_buf,u8* im)
 {
 	u32 i;
@@ -97,6 +106,30 @@ void D_test(u32* jpeg_buf,u8* im)
 	USART_SendData(USART2,255);
 	LED0(Off);
 }
+void D0_test(u32* jpeg_buf,u8* im)
+{
+	u32 i;
+	u16 *jpeg;
+	i=PIC_COL*PIC_ROW;
+	jpeg=(u16*)jpeg_buf;
+	getH_D(jpeg,im,&info);
+	LED0(On);
+	USART_SendString_bysize(USART2,im,i);
+	USART_SendData(USART2,255);
+	LED0(Off);
+}
+void D2_test(u32* jpeg_buf,u8* im)
+{
+	u32 i;
+	u16 *jpeg;
+	i=PIC_COL*PIC_ROW;
+	jpeg=(u16*)jpeg_buf;
+	get_target(jpeg,im,&info);
+	LED0(On);
+	USART_SendString_bysize(USART2,im,i);
+	USART_SendData(USART2,255);
+	LED0(Off);
+}
 char mode='D';
 void test_mode(u8 command)
 {
@@ -117,6 +150,10 @@ void test_mode(u8 command)
 		case 7:mode='D';
 			break;
 		case 8:mode='h';
+			break;
+		case 9:mode='d';
+			break;
+		case 10:mode='e';
 			break;
 	}
 }

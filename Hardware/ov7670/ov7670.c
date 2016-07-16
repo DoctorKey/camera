@@ -119,7 +119,7 @@ void Cam_Init()
   	DCMI_InitStructure.DCMI_PCKPolarity = DCMI_PCKPolarity_Falling;
   	DCMI_InitStructure.DCMI_VSPolarity = DCMI_VSPolarity_High;
   	DCMI_InitStructure.DCMI_HSPolarity = DCMI_HSPolarity_Low;
-  	DCMI_InitStructure.DCMI_CaptureRate = DCMI_CaptureRate_1of4_Frame;
+  	DCMI_InitStructure.DCMI_CaptureRate = DCMI_CaptureRate_All_Frame;
   	DCMI_InitStructure.DCMI_ExtendedDataMode = DCMI_ExtendedDataMode_8b;
   	DCMI_Init(&DCMI_InitStructure); 
 		
@@ -153,7 +153,7 @@ u8 OV7670_Init(void)
 	   	OV_WriteReg(ov7670_init_reg_tbl[i][0],ov7670_init_reg_tbl[i][1]);
   	}
 
-		OV7670_config_window(184,10,320,120);
+		OV7670_config_window(184,10,310,121);
 		
 	return 0; 
 }
