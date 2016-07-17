@@ -54,7 +54,7 @@ void getR(u16 *jpeg,u8 *R)
 	{
 		for(j=0;j<PIC_COL;j++)
 		{
-			*(R+i*PIC_COL+j)=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;
+			*(R+i*PIC_COL+(j+158)%PIC_COL)=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;
 		}
 	}
 }
@@ -65,7 +65,7 @@ void getG(u16 *jpeg,u8 *G)
 	{
 		for(j=0;j<PIC_COL;j++)
 		{
-			*(G+i*PIC_COL+j)=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;
+			*(G+i*PIC_COL+(j+158)%PIC_COL)=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;
 		}
 	}
 }
@@ -76,7 +76,7 @@ void getB(u16 *jpeg,u8 *B)
 	{
 		for(j=0;j<PIC_COL;j++)
 		{
-			*(B+i*PIC_COL+j)=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;
+			*(B+i*PIC_COL+(j+158)%PIC_COL)=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;
 		}
 	}
 }
@@ -136,7 +136,7 @@ void getH(u16 *jpeg,u8 *H)
 				h_tmp += TWO_PI*40;
 			}
 			
-			*(H+i*PIC_COL+j)=h_tmp;
+			*(H+i*PIC_COL+(j+158)%PIC_COL)=h_tmp;
 		}
 	}
 }
@@ -182,11 +182,11 @@ void getH_D(u16 *jpeg,u8 *H,R_info *info)
 			{
 				x+=i; //row
 				count_x++;
-				y+=j; //col
+				y+=(j+158)%PIC_COL; //col
 //				count_y++;
 			}
 			
-//			*(H+i*PIC_COL+j)=h_tmp;
+			*(H+i*PIC_COL+(j+158)%PIC_COL)=h_tmp;
 		}
 	}
 	
@@ -233,7 +233,7 @@ void getH_op1(u16 *jpeg,u8 *H)//去掉MAX=B的情况，去掉H<0的情况
 				h_tmp=((B-R)/(G-B)+2)*PI_3;
 			}
 						
-			*(H+i*PIC_COL+j)=(h_tmp*40);
+			*(H+i*PIC_COL+(j+158)%PIC_COL)=(h_tmp*40);
 		}
 	}
 }
@@ -269,10 +269,10 @@ void getH_op1_getR(u16 *jpeg,u8 *H,R_info *info)//去掉MAX=B的情况，去掉H<0的情况
 			{
 				x+=i; //row
 				count_x++;
-				y+=j; //col
+				y+=(j+158)%PIC_COL; //col
 				count_y++;
 			}
-			*(H+i*PIC_COL+j)=h_tmp;
+			*(H+i*PIC_COL+(j+158)%PIC_COL)=h_tmp;
 		}
 	}
 	
@@ -317,7 +317,7 @@ void get_target(u16 *jpeg,u8 *H,R_info *info)
 				y+=j; //col
 				count_y++;
 			}
-			*(H+i*PIC_COL+j)=h_tmp;
+			*(H+i*PIC_COL+(j+158)%PIC_COL)=h_tmp;
 		}
 	}
 	

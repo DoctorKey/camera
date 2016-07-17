@@ -130,7 +130,7 @@ void D2_test(u32* jpeg_buf,u8* im)
 	USART_SendData(USART2,255);
 	LED0(Off);
 }
-char mode='D';
+char mode='Y';
 void test_mode(u8 command)
 {
 	switch(command)

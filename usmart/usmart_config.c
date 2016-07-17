@@ -7,6 +7,7 @@
 #include "led.h"		
 #include "ov7670.h"
 #include "test.h"
+#include "pwm_out.h"
 
 //extern void led_set(u8 sta);
 //extern void test_fun(void(*ledset)(u8),u8 sta);
@@ -23,6 +24,7 @@ struct _m_usmart_nametab usmart_nametab[]=
 	(void*)LED_SET,"void LED_SET(u8 mode)",
 	(void*)OV_WriteReg,"u8 OV_WriteReg(u8 regID, u8 regDat)",
 	(void*)test_mode,"void test_mode(char command)",
+	(void*)SetPwm_5,"void SetPwm_5(int16_t pwm_3,int16_t pwm_4,s16 min,s16 max)",
 //	(void*)led_set,"void led_set(u8 sta)",
 //	(void*)test_fun,"void test_fun(void(*ledset)(u8),u8 sta)",				  	    
 };						  

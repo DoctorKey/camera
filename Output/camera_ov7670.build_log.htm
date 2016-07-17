@@ -22,17 +22,69 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 F:\electricity\光电设计大赛\camera\Project\camera_ov7670.uvprojx
-Project File Date:  07/13/2016
+Project File Date:  07/17/2016
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'F:\electricity\MCU\STM32\mdk515\ARM\ARMCC\Bin'
 Build target 'SY-STM32F407 V2.0'
-compiling init.c...
-compiling timer.c...
+compiling dgp.c...
+..\User\dgp.c(116): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((G-B)/(R-G))*
+I_3_40;
+..\User\dgp.c(119): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((G-B)/(R-B))*
+I_3_40;
+..\User\dgp.c(122): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((B-R)/(G-B)+2)*
+I_3_40;
+..\User\dgp.c(125): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((B-R)/(G-R)+2)*
+I_3_40;
+..\User\dgp.c(128): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((R-G)/(B-G)+4)*
+I_3_40;
+..\User\dgp.c(131): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((R-G)/(B-R)+4)*
+I_3_40;
+..\User\dgp.c(158): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((G-B)/(R-G))*
+I_3_40;
+..\User\dgp.c(161): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((G-B)/(R-B))*
+I_3_40;
+..\User\dgp.c(164): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((B-R)/(G-B)+2)*
+I_3_40;
+..\User\dgp.c(167): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((B-R)/(G-R)+2)*
+I_3_40;
+..\User\dgp.c(170): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((R-G)/(B-G)+4)*
+I_3_40;
+..\User\dgp.c(173): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((R-G)/(B-R)+4)*
+I_3_40;
+..\User\dgp.c(147): warning:  #177-D: variable "count_y" was declared but never referenced
+        u16 i,j,count_x=0,count_y=0;
+..\User\dgp.c(256): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((G-B)/(R-G))*
+I_3_40;
+..\User\dgp.c(259): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((G-B)/(R-B))*
+I_3_40;
+..\User\dgp.c(262): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((B-R)/(G-R)+2)*
+I_3_40;
+..\User\dgp.c(265): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                                h_tmp=(float)((B-R)/(G-B)+2)*
+I_3_40;
+..\User\dgp.c(338): warning:  #1-D: last line of file ends without a newline
+  }
+..\User\dgp.c: 18 warnings, 0 errors
 linking...
-Program Size: Code=18764 RO-data=1280 RW-data=424 ZI-data=59336  
+Program Size: Code=20292 RO-data=1340 RW-data=432 ZI-data=59336  
 FromELF: creating hex file...
-"..\Output\camera_ov7670.axf" - 0 Error(s), 0 Warning(s).
+"..\Output\camera_ov7670.axf" - 0 Error(s), 18 Warning(s).
 
 <h2>Software Packages used:</h2>
 

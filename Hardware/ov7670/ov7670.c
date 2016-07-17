@@ -153,7 +153,7 @@ u8 OV7670_Init(void)
 	   	OV_WriteReg(ov7670_init_reg_tbl[i][0],ov7670_init_reg_tbl[i][1]);
   	}
 
-		OV7670_config_window(184,10,310,121);
+		OV7670_config_window(184+80*2,10+60*2,161,121);
 		
 	return 0; 
 }
