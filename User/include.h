@@ -12,8 +12,8 @@
 #define SCORE_FPU_MODE                  //\"FPU Off\" 
 #endif
 
-//#define FRONT
-#define BACK
+#define FRONT
+//#define BACK
 
 /***************中断优先级******************/
 #define NVIC_GROUP NVIC_PriorityGroup_3		//中断分组选择 0~7抢占 0~1响应

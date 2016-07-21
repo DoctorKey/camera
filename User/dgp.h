@@ -12,6 +12,7 @@ typedef struct{
 	float ratio;
 }R_info;
 
+void set_rgb_threshold(u8 R,u8 G,u8 B);
 void jpeg_data_process(void);
 void getR(u16 *jpeg,u8 *R);
 void getG(u16 *jpeg,u8 *G);
@@ -22,9 +23,15 @@ void getH_D(u16 *jpeg,u8 *H,R_info *info);
 void getH_op1(u16 *jpeg,u8 *H);
 void getH_op1_getR(u16 *jpeg,u8 *H,R_info *info);
 void get_target(u16 *jpeg,u8 *H,R_info *info);
+void get_target2(u16 *jpeg,u8 *H,R_info *info);
+
 
 extern volatile u8 jpeg_data_ok;
 extern volatile u32 jpeg_data_len;
+
+extern u8 R_threshold;
+extern u8 G_threshold;
+extern u8 B_threshold;
 
 #endif
 

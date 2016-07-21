@@ -50,10 +50,11 @@ int main(void)
 						break;
 					case 'e':D0_test(jpeg_buf,im);
 						break;
+					case 'a':D3_test(jpeg_buf,im);
+						break;
 				}
 			jpeg_data_ok=2;	//标记jpeg数据处理完了,可以让DMA去采集下一帧了.
 		}		
-//		im_send(im);
 		LED0(Off);	
 	}
 }

@@ -6,6 +6,9 @@ extern u8 ov_frame;
 //extern volatile u16 jpeg_data_len;
 extern char mode;
 extern R_info info;
+extern u8 R_threshold;
+extern u8 G_threshold;
+extern u8 B_threshold;
 
 //通用定时器3中断初始化
 //arr：自动重装值。
@@ -46,8 +49,9 @@ void TIM3_IRQHandler(void)
 		printf("frame:%d\r\n",ov_frame);//打印帧率
 		printf("jpeg_data_len:%d\r\n",jpeg_data_len);//打印帧率
 		printf("mode:%c\r\n",mode);
+		printf("R_threshold:%d,G_threshold:%d,B_threshold:%d\r\n",R_threshold,G_threshold,B_threshold);
 		printf("x:%d,y:%d,ratio:%f\r\n",info.x,info.y,info.ratio);
-		printf("time:%d\r\n",GetSysTime_us()*1000000);
+//		printf("time:%d\r\n",GetSysTime_us()*1000000);
 		ov_frame=0;
 	}
 	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //清除中断标志位

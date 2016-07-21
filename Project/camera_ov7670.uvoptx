@@ -193,7 +193,7 @@
           <Type>0</Type>
           <LineNumber>38</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231424</Address>
+          <Address>134233952</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -209,7 +209,7 @@
           <Type>0</Type>
           <LineNumber>82</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134221622</Address>
+          <Address>134222286</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -225,7 +225,7 @@
           <Type>0</Type>
           <LineNumber>209</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134230766</Address>
+          <Address>134231648</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -235,6 +235,22 @@
           <Filename>F:\electricity\鍏夌數璁捐澶ц禌\camera\User\dgp.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\camera_ov7670\../User/dgp.c\209</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>56</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134234036</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>F:\electricity\鍏夌數璁捐澶ц禌\camera\User\main.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\camera_ov7670\../User/main.c\56</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow2>
@@ -262,6 +278,14 @@
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow3>
+      <MemoryWindow4>
+        <Mm>
+          <WinNumber>4</WinNumber>
+          <SubType>0</SubType>
+          <ItemText>jpeg_buf</ItemText>
+          <AccSizeX>0</AccSizeX>
+        </Mm>
+      </MemoryWindow4>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -908,7 +932,7 @@
 
   <Group>
     <GroupName>Doc</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

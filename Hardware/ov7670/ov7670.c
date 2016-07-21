@@ -1,6 +1,5 @@
 #include "ov7670.h"
 #include "delay.h"
-#include "dgp.h"
 #include "ov7670cfg.h"
 
 __align(4) u32 jpeg_buf[jpeg_buf_size];
@@ -153,7 +152,7 @@ u8 OV7670_Init(void)
 	   	OV_WriteReg(ov7670_init_reg_tbl[i][0],ov7670_init_reg_tbl[i][1]);
   	}
 
-		OV7670_config_window(184+80*2,10+60*2,161,121);
+		OV7670_config_window(184+90*2,10+60*2,161,121);
 		
 	return 0; 
 }

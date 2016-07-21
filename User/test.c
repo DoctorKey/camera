@@ -130,7 +130,19 @@ void D2_test(u32* jpeg_buf,u8* im)
 	USART_SendData(USART2,255);
 	LED0(Off);
 }
-char mode='Y';
+void D3_test(u32* jpeg_buf,u8* im)
+{
+	u32 i;
+	u16 *jpeg;
+	i=PIC_COL*PIC_ROW;
+	jpeg=(u16*)jpeg_buf;
+	get_target2(jpeg,im,&info);
+	LED0(On);
+	USART_SendString_bysize(USART2,im,i);
+	USART_SendData(USART2,255);
+	LED0(Off);
+}
+char mode='M';
 void test_mode(u8 command)
 {
 	switch(command)
@@ -154,6 +166,8 @@ void test_mode(u8 command)
 		case 9:mode='d';
 			break;
 		case 10:mode='e';
+			break;
+		case 11:mode='a';
 			break;
 	}
 }
