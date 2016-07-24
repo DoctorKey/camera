@@ -15,6 +15,7 @@ void D0_test(u32* jpeg_buf,u8* im);//不优化H的找红心算法
 void D_test(u32* jpeg_buf,u8* im);//优化H的找红心算法
 void D2_test(u32* jpeg_buf,u8* im);//自己加权算法
 void D3_test(u32* jpeg_buf,u8* im);//孙训阈值算法
+void line_test(u32* jpeg_buf,u8* im);//寻迹算法
 void test_mode(u8 command);
 
 extern char mode;

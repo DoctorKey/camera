@@ -12,12 +12,7 @@
 
 u8 Init_Finish = 0;
 extern char mode;
-/*************************************************************************************
-  * 函数名称：main()
-  * 参数    ：void
-  * 返回值  ：void
-  * 描述    ：程序主入口main函数
-  *************************************************************************************/
+
 int main(void)
 { 
 	
@@ -51,6 +46,8 @@ int main(void)
 					case 'e':D0_test(jpeg_buf,im);
 						break;
 					case 'a':D3_test(jpeg_buf,im);
+						break;
+					case 'l':line_test(jpeg_buf,im);
 						break;
 				}
 			jpeg_data_ok=2;	//标记jpeg数据处理完了,可以让DMA去采集下一帧了.

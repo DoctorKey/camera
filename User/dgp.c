@@ -381,10 +381,61 @@ void get_target2(u16 *jpeg,u8 *H,R_info *info)
 		*(H+i*PIC_COL+j)=0;
 	}
 }
+u8 R_line_threshold;
+u8 G_line_threshold;
+u8 B_line_threshold;
+void get_line(u16 *jpeg,u8 *H,R_info *info)
+{
+	u8 R,G,B;
+	u16 i,j,count=0;
+	u32 x=0,y=0;
+	for(i=0;i<PIC_ROW;i++)
+	{
+		for(j=0;j<PIC_COL;j++)
+		{
+			R=((*(jpeg+i*PIC_COL+j))&0x1f)<<3;//R
+			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;//G
+			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;//B
+
+			if( R<R_line_threshold && G<G_line_threshold && B<B_line_threshold)
+			{
+				x+=i; //row
+				count++;
+				y+=(j+158)%PIC_COL; //col
+				*(H+i*PIC_COL+(j+158)%PIC_COL)=254;
+			}
+			else
+			{
+				*(H+i*PIC_COL+(j+158)%PIC_COL)=1;
+			}
+			
+		}
+	}
+	
+	info->x = x/count;
+	info->y = y/count;
+	info->ratio = (float)count/(PIC_ROW*PIC_COL);
+	
+	j=info->y;
+	for(i=info->x-3;i<info->x+4;i++)
+	{
+		*(H+i*PIC_COL+j)=0;
+	}
+	i=info->x;
+	for(j=info->y-3;j<info->y+4;j++)
+	{
+		*(H+i*PIC_COL+j)=0;
+	}
+}
 void set_rgb_threshold(u8 R,u8 G,u8 B)
 {
 	R_threshold = R;
 	G_threshold = G;
 	B_threshold = B;
 }
-
+void set_line_threshold(u8 r,u8 g,u8 b)
+{
+	R_line_threshold = r;
+	G_line_threshold = g;
+	B_line_threshold = b;
+}

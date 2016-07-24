@@ -26,7 +26,8 @@ struct _m_usmart_nametab usmart_nametab[]=
 	(void*)OV_WriteReg,"u8 OV_WriteReg(u8 regID, u8 regDat)",
 	(void*)test_mode,"void test_mode(char command)",
 	(void*)SetPwm_5,"void SetPwm_5(int16_t pwm_3,int16_t pwm_4,s16 min,s16 max)",
-	(void*)set_rgb_threshold,"void set_rgb_threshold(u8 R,u8 G,u8 B)",			  	    
+	(void*)set_rgb_threshold,"void set_rgb_threshold(u8 R,u8 G,u8 B)",
+  (void*)set_line_threshold,"void set_line_threshold(u8 r,u8 g,u8 b)",		
 };						  
 ///////////////////////////////////END///////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
