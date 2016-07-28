@@ -381,9 +381,9 @@ void get_target2(u16 *jpeg,u8 *H,R_info *info)
 		*(H+i*PIC_COL+j)=0;
 	}
 }
-u8 R_line_threshold;
-u8 G_line_threshold;
-u8 B_line_threshold;
+u8 R_line_threshold=150;
+u8 G_line_threshold=155;
+u8 B_line_threshold=90;
 void get_line(u16 *jpeg,u8 *H,R_info *info)
 {
 	u8 R,G,B;
@@ -397,7 +397,7 @@ void get_line(u16 *jpeg,u8 *H,R_info *info)
 			G=((*(jpeg+i*PIC_COL+j))&0x7e0)>>3;//G
 			B=((*(jpeg+i*PIC_COL+j))&0xf800)>>8;//B
 
-			if( R<R_line_threshold && G<G_line_threshold && B<B_line_threshold)
+			if( R>R_line_threshold && G<G_line_threshold && B<B_line_threshold)
 			{
 				x+=i; //row
 				count++;
